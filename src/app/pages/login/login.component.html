@@ -1,0 +1,72 @@
+<ngx-loading [show]="loading" [config]="{ animationType: 'wandering-cubes',
+backdropBackgroundColour: 'rgba(255,255,255,0.3)', backdropBorderRadius: '10px',
+primaryColour: '#6ac9d2', secondaryColour: '#e494a7', tertiaryColour: '#fffff' }"></ngx-loading>
+<div class="wrapper">
+
+
+    <!--=================================
+     preloader -->
+  
+    <!--<div id="pre-loader">
+      <img src="assets/images/pre-loader/loader-01.svg" alt="">
+    </div>-->
+  
+    <!--=================================
+     preloader -->
+    <!--=================================
+    login-->
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+     <section class="height-100vh d-flex align-items-center page-section-ptb login" style="background: url(https://asia.24hos.com/web/static/img/24hos_bg.jpg);">
+      <div class="container">
+        <div class="row justify-content-center no-gutters vertical-align">
+          <div class="col-lg-4 col-md-6 login-fancy-bg " style="background-color: #507178b5;">
+            <div class="login-fancy">
+              <!-- <h2 class="text-white mb-20">KDMS</h2> -->
+              <img style="width: 70%;" src="assets/images/logo-kdms.svg" alt="">
+              <!-- <p class="mb-20 text-white">Create tailor-cut websites with the exclusive multi-purpose responsive template along with powerful features.</p> -->
+              <ul class="list-unstyled  pos-bot pb-30">
+                <li class="list-inline-item"><a class="text-white" routerLink=""> Terms of Use</a> </li>
+                <li class="list-inline-item"><a class="text-white" routerLink=""> Privacy Policy</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 bg-white">
+            <div class="login-fancy pb-40 clearfix">
+              <h3 class="mb-30">Sign In</h3>
+              <div class="section-field mb-20">
+                <label class="mb-10" for="name">User name* </label>
+                <input id="name" class="web form-control" type="text" placeholder="User name" name="web" formControlName="username">
+              </div>
+              <div class="section-field mb-20">
+                <label class="mb-10" for="Password">Password* </label>
+                <input id="Password" class="Password form-control" type="password" placeholder="Password" name="Password" formControlName="password">
+              </div>
+              <div class="section-field">
+                <div class="remember-checkbox mb-30">
+                  <input type="checkbox" class="form-control" name="two" id="two" />
+                  <label for="two"> Remember me</label>
+                  <a routerLink="password-recovery" class="float-right">Forgot Password?</a>
+                </div>
+              </div>
+              <!-- <a href="javascript:void(0);" class="button" type="submit">
+                <span >Log in</span>
+  
+                <i class="fa fa-check"></i>
+  
+              </a> -->
+              <button type="submit" class="bt-sky-blue" style="font-size:12px;margin-left: 3px;" >
+                    LOG IN
+                  </button>
+              <p class="mt-20 mb-0">Don't have an account? <a routerLink="admin-register"> Create one here</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </form>
+   
+  
+    <!--=================================
+     login-->
+  
+  </div>

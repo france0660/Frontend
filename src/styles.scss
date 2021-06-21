@@ -2,3 +2,260 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+
+/* You can add global styles to this file, and also import other style files */
+
+
+/*
+Template:  Webmin - Bootstrap 4 & Angular 5 Dashboard Template
+Author: potenzaglobalsolutions.com
+Design and Developed by: potenzaglobalsolutions.com
+
+NOTE: This file includes all admin Template plugins and Shortcodes. If you don't want to use any plugins from below. You can simply remove that line from this file.
+*/
+
+
+/*
+================================================
+[  Table of contents  ]
+================================================
+
+1. Variables
+2. Mixins
+3. Helpers
+4. Typography
+5. Components
+	- Accordion
+	- Button
+	- Lists
+	- Nice Select
+	- Pricing
+	- Social Icon
+	- Tabs
+	- Owl Carousel
+6. Sidebar
+7. Layout
+8. Responsive
+
+======================================
+[ End table content ]
+======================================
+*/
+
+
+/*Global*/
+
+// @import "~assets/scss/variables";
+@import "./assets/scss/variables";
+@import "./assets/scss/mixins";
+@import "./assets/scss/helpers";
+@import "./assets/scss/typography";
+
+/*Shortcodes*/
+
+@import "./assets/scss/components/accordion";
+@import "./assets/scss/components/button";
+@import "./assets/scss/components/list-style";
+@import "./assets/scss/components/pricing";
+@import "./assets/scss/components/social-icon";
+@import "./assets/scss/components/tabs";
+@import "./assets/scss/components/owl-carousel";
+
+/*layout*/
+
+@import "./assets/scss/sidebar";
+@import "./assets/scss/layout";
+@import "./assets/scss/responsive";
+
+/* Fixes */
+
+.card .btn-group .dropdown-menu {
+    top: 0;
+}
+
+.modal:before {
+    content: '';
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .5);
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.custom-day.range,
+.custom-day:hover,
+.ngb-dp-day .bg-primary {
+    background: #b342ad!important;
+}
+
+.calendar-main .month-name {
+    margin-top: 0.5rem;
+}
+
+.calendar-main .btn-success {
+    background: #b342ad;
+    border-color: #b342ad;
+}
+
+.calendar-main .btn-success:not(:disabled):not(.disabled):active,
+.calendar-main .btn-success:not(:disabled):not(.disabled).active {
+    background-color: #70a52c;
+    border-color: #70a52c;
+}
+
+.side-menu-fixed .ng-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.side-menu-fixed.light-side-menu .ng-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3) !important;
+}
+
+dx-vector-map rect {
+    stroke: #ffffff;
+}
+
+dx-vector-map.dxm-layer path {
+    fill: rgb(215, 219, 222);
+}
+
+.cal-month-view .cal-cell-top {
+    outline: 0;
+}
+
+.hidden {
+    display: none
+}
+
+.form-control-sm {
+    padding: 0.4rem 1rem !important;
+}
+
+select.form-control-sm:not([size]):not([multiple]) {
+    height: calc(1.9rem + 2px) !important;
+}
+
+.btnxl {
+    height: 47px;
+    border-radius: 0px;
+}
+
+.btns {
+    height: 17px;
+    border-radius: 0px;
+}
+
+.dropdown-toggle::after {
+    //margin-left: 80%;
+    @import "~@ng-select/ng-select/themes/default.theme.css";
+    color: floralwhite;
+}
+
+.msg-error {
+    border-width: 2px !important;
+    border-color: #dc0202 !important;
+    input {
+        border-width: 2px;
+        border-color: #dc0202 !important;
+    }
+    ;
+    select {
+        border-width: 2px;
+        border-color: #dc0202 !important;
+    }
+    .btn:not(:disabled):not(.disabled) {
+        border-width: 2px;
+        border-color: #dc0202 !important;
+    }
+}
+
+.msg-error-multiselect {
+    border-width: 2px !important;
+    border-color: #dc0202 !important;
+    .btn:not(:disabled):not(.disabled) {
+        border-width: 2px;
+        border-color: #dc0202 !important;
+    }
+}
+
+.p-line {
+    flex: 1 0 32px;
+    min-width: 1px;
+    min-height: 1px;
+    background-color: rgba(0, 0, 0, 0.12);
+    margin: 3rem 1rem 2rem 1rem;
+}
+
+ng-select.custom {
+   
+    border:0px;
+    min-height: 50px;
+    border-radius: 0;
+    // height: 50px;
+}
+ng-select.custom .ng-select-container  {
+    min-height: 50px;
+    // height: 50px;
+    border-radius: 0;
+}
+
+ng-select.custom .ng-placeholder  {
+    position: absolute;
+    z-index: 1;
+    margin-top: 10px;
+    color: black;
+}
+ 
+ng-select.selec {
+   
+    border:0px;
+    min-height: 50px;
+    border-radius: 0;
+    // height: 50px;
+}
+ng-select.selec .ng-select-container  {
+    min-height: 50px;
+    // height: 50px;
+    border-radius: 0;
+    background-color: #f6f7f8;
+    border-color: #f6f7f8;
+}
+
+
+
+ng-select.ng-invalid.ng-touched .ng-select-container {
+    border-color: #dc3545;
+    border-width: 2px;
+  }
+
+  .bt-sky-blue{ 
+    cursor: pointer;
+    background-color:#6ac9d2;
+    color: white;
+    border-radius: 10px;
+    margin: 10px;
+    border-color: #6ac9d2; 
+    min-width: 200px;
+    height: 40px;
+    border: 2px solid #6ac9d2;
+  }
+  .bt-sky-blue:hover {
+    background-color: white; 
+    color: #6ac9d2; 
+    font-weight:bold; 
+    border: 2px solid #6ac9d2;
+  }
+
+
+
+// .ng-select-multiple .ng-select-container .ng-value-container .ng-placeholder {
+//     position: absolute;
+//     z-index: 1;
+//     margin-top: 10px;
+//     color: currentColor;
+// }
