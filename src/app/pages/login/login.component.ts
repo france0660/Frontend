@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from 'src/app/shared/service/http.service';
 import { API_URL } from '../../constant/api.constant';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup , Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -18,8 +18,8 @@ export class LoginComponent implements OnInit {
     private router: Router
   ) {
     this.loginForm = this.formBuilder.group({
-      username: [''],
-      password: [''],
+      username: ['', Validators.required],
+      password: ['', Validators.required],
     });
   }
 
@@ -36,7 +36,10 @@ export class LoginComponent implements OnInit {
 
   public onSubmit() {
     this.loading = true
-    this.httpService
+
+    if (this.loginForm.status == "VALID"){
+      
+      this.httpService
       .get(API_URL.loginURL, {
         User_Name: this.loginForm.value.username,
         Password: this.loginForm.value.password,
@@ -56,6 +59,10 @@ export class LoginComponent implements OnInit {
           this.loading = false
           console.log(error);
         }
-      );
+      );}else{
+        this.loading = false
+        alert("กรอกให้ถูกต้อง")
+      }
+    
   }
 }
