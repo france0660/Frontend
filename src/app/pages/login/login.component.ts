@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
   public loading: boolean = false
+  public statuspage : number = 1
   constructor(
     private formBuilder: FormBuilder,
     private httpService: HttpService,
@@ -41,8 +42,8 @@ export class LoginComponent implements OnInit {
       
       this.httpService
       .get(API_URL.loginURL, {
-        User_Name: this.loginForm.value.username,
-        Password: this.loginForm.value.password,
+        user_name: this.loginForm.value.username,
+        password: this.loginForm.value.password,
       })
       .subscribe(
         (res: any) => {
@@ -64,5 +65,10 @@ export class LoginComponent implements OnInit {
         alert("กรอกให้ถูกต้อง")
       }
     
+  }
+
+  public routeTo(data:number) {
+    this.statuspage = data
+    // this.router.navigate(["/home"]);
   }
 }

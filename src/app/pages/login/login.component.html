@@ -15,18 +15,18 @@ primaryColour: '#6ac9d2', secondaryColour: '#e494a7', tertiaryColour: '#fffff' }
      preloader -->
     <!--=================================
     login-->
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-     <section class="height-100vh d-flex align-items-center page-section-ptb login" style="background: url(https://asia.24hos.com/web/static/img/24hos_bg.jpg);">
+  <form *ngIf = "statuspage == 1" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+     <section class="height-100vh d-flex align-items-center page-section-ptb login" style="background-image:url(../../../assets/images/2056609.jpg)">
       <div class="container">
         <div class="row justify-content-center no-gutters vertical-align">
-          <div class="col-lg-4 col-md-6 login-fancy-bg " style="background-color: #507178b5;">
+          <div class="col-lg-4 col-md-6 login-fancy-bg " style="background-color: #77a5b1b5;">
             <div class="login-fancy">
               <!-- <h2 class="text-white mb-20">KDMS</h2> -->
-              <img style="width: 70%;" src="assets/images/logo-kdms.svg" alt="">
+              <img style="width: 100%; height: 50%;  margin-top: 90px;" src="assets/images/letter-jj.png" alt="">
               <!-- <p class="mb-20 text-white">Create tailor-cut websites with the exclusive multi-purpose responsive template along with powerful features.</p> -->
               <ul class="list-unstyled  pos-bot pb-30">
-                <li class="list-inline-item"><a class="text-white" routerLink=""> Terms of Use</a> </li>
-                <li class="list-inline-item"><a class="text-white" routerLink=""> Privacy Policy</a></li>
+                <!-- <li class="list-inline-item"><a class="text-white" routerLink=""> Terms of Use</a> </li>
+                <li class="list-inline-item"><a class="text-white" routerLink=""> Privacy Policy</a></li> -->
               </ul>
             </div>
           </div>
@@ -39,13 +39,13 @@ primaryColour: '#6ac9d2', secondaryColour: '#e494a7', tertiaryColour: '#fffff' }
               </div>
               <div class="section-field mb-20">
                 <label class="mb-10" for="Password">Password* </label>
-                <input id="Password" class="Password form-control" type="password" placeholder="Password" name="Password" formControlName="password">
+                <input id="password" class="Password form-control" type="password" placeholder="Password" name="password" formControlName="password">
               </div>
               <div class="section-field">
                 <div class="remember-checkbox mb-30">
                   <input type="checkbox" class="form-control" name="two" id="two" />
                   <label for="two"> Remember me</label>
-                  <a routerLink="password-recovery" class="float-right">Forgot Password?</a>
+                  <a routerLink="password-recovery" class="float-right"></a>
                 </div>
               </div>
               <!-- <a href="javascript:void(0);" class="button" type="submit">
@@ -57,13 +57,62 @@ primaryColour: '#6ac9d2', secondaryColour: '#e494a7', tertiaryColour: '#fffff' }
               <button type="submit" class="bt-sky-blue" style="font-size:12px;margin-left: 3px;" >
                     LOG IN
                   </button>
-              <p class="mt-20 mb-0">Don't have an account? <a routerLink="admin-register"> Create one here</a></p>
+              <p class="mt-20 mb-0">New Employee? <a style="cursor: pointer;"  (click)="routeTo(2)" > Create User here</a></p>
             </div>
           </div>
         </div>
       </div>
     </section>
   </form>
+
+  <form *ngIf = "statuspage == 2" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <section class="height-100vh d-flex align-items-center page-section-ptb login" style="background-image:url(../../../assets/images/2056609.jpg)">
+     <div class="container">
+       <div class="row justify-content-center no-gutters vertical-align">
+         <div class="col-lg-4 col-md-6 login-fancy-bg " style="background-color: #54686db5;">
+           <div class="login-fancy">
+             <!-- <h2 class="text-white mb-20">KDMS</h2> -->
+             <img style="width: 100%; height: 50%;  margin-top: 90px;" src="assets/images/1624340488.ico" alt="">
+             <!-- <p class="mb-20 text-white">Create tailor-cut websites with the exclusive multi-purpose responsive template along with powerful features.</p> -->
+             <ul class="list-unstyled  pos-bot pb-30">
+               <!-- <li class="list-inline-item"><a class="text-white" routerLink=""> Terms of Use</a> </li>
+               <li class="list-inline-item"><a class="text-white" routerLink=""> Privacy Policy</a></li> -->
+             </ul>
+           </div>
+         </div>
+         <div class="col-lg-4 col-md-6 bg-white">
+           <div class="login-fancy pb-40 clearfix">
+             <h3 class="mb-30">Create User</h3>
+             <div class="section-field mb-20">
+               <label class="mb-10" for="name">User name* </label>
+               <input id="name" class="web form-control" type="text" placeholder="User name" name="web" formControlName="username">
+             </div>
+             <div class="section-field mb-20">
+               <label class="mb-10" for="Password">Password* </label>
+               <input id="Password" class="Password form-control" type="password" placeholder="Password" name="Password" formControlName="password">
+             </div>
+             <div class="section-field">
+               <div class="remember-checkbox mb-30">
+                 <input type="checkbox" class="form-control" name="two" id="two" />
+                 <label for="two"> Remember me</label>
+                 <a routerLink="password-recovery" class="float-right"></a>
+               </div>
+             </div>
+             <!-- <a href="javascript:void(0);" class="button" type="submit">
+               <span >Log in</span>
+ 
+               <i class="fa fa-check"></i>
+ 
+             </a> -->
+             <button  class="bt-sky-blue" style="font-size:12px;margin-left: 3px;"  (click)="routeTo(1)">
+                   cancel
+                 </button>
+           </div>
+         </div>
+       </div>
+     </div>
+   </section>
+ </form>
    
   
     <!--=================================
