@@ -3,6 +3,8 @@ import { HttpService } from 'src/app/shared/service/http.service';
 import { API_URL } from '../../constant/api.constant';
 import { FormBuilder, FormGroup , Validators} from '@angular/forms';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+
 
 @Component({
   selector: 'app-login',
@@ -53,7 +55,9 @@ export class LoginComponent implements OnInit {
             console.log(res);
           } else {
             this.loading = false
-            alert("ไป login ใหม่")
+            Swal.fire('Not Correct',
+            'Username or Password is not correct!',
+            'error')
           }
         },
         (error) => {
@@ -62,7 +66,9 @@ export class LoginComponent implements OnInit {
         }
       );}else{
         this.loading = false
-        alert("กรอกให้ถูกต้อง")
+        Swal.fire('Not Correct',
+        'Please Fill completely!',
+        'error')
       }
     
   }
