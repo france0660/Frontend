@@ -1,1 +1,33 @@
-<p>layout works!</p>
+<p>
+            <mat-toolbar>
+              <span>JJ Store</span>   <mat-icon style="margin-left: 18px; cursor: pointer;" (click)="changeOpenOrOff()" aria-hidden="false" aria-label="Example home icon">home</mat-icon>
+        
+            </mat-toolbar>
+          </p>
+
+          <mat-drawer-container class="example-container" autosize>
+            <mat-drawer opened #drawer class="example-sidenav" mode="side">
+                <div *ngIf = "openOrOff">
+                    <div class="leftmenu" style="width: 100%; display: flex; cursor: pointer; margin-bottom: 15px;" *ngFor="let item of items" (click)="routeTo(item.link)"> 
+                 <mat-icon>{{item.icon}}</mat-icon>
+                 <div style="margin-left: 15px; margin-top: 5px">{{item.name}}</div>
+            </div>
+                </div>
+
+                <div *ngIf = "!openOrOff">
+                    <div class="leftmenu" style="width: 100%; display: flex; cursor: pointer; margin-bottom: 15px;" *ngFor="let item of items" (click)="routeTo(item.link)"> 
+                 <mat-icon>{{item.icon}}</mat-icon>
+                 <!-- <div style="margin-left: 15px; margin-top: 5px">{{item.name}}</div> -->
+            </div>
+                </div>
+              
+            </mat-drawer>
+            <router-outlet></router-outlet>
+          
+          </mat-drawer-container>
+  
+  
+  
+  
+
+  
