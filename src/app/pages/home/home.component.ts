@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit {
     private router: Router
     ) { 
     this.saleform = this.formBuilder.group({
+      sale_id: ['0', Validators.required],
       buyer_name: ['', Validators.required],
       sale_name: ['', Validators.required],
       sale_date: ['', Validators.required],
@@ -38,16 +39,16 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.httpService.get(API_URL.getListsaleProductURL, {}).subscribe(
-      (res: any) => {
-        this.Allproduct = res;
-        // location.reload()
-        console.log(res);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    // this.httpService.get(API_URL.getListsaleProductURL, {}).subscribe(
+    //   (res: any) => {
+    //     this.Allproduct = res;
+    //     // location.reload()
+    //     console.log(res);
+    //   },
+    //   (error) => {
+    //     console.log(error);
+    //   }
+    // );
   }
 
   public getListSale(){
@@ -68,6 +69,7 @@ export class HomeComponent implements OnInit {
   public onSubmit(form: any) {
     
     this.httpService.post(API_URL.saleProductURL, {
+      sale_id: this.saleform.value.sale_id,
       buyer_name: this.saleform.value.buyer_name,
       sale_name: this.saleform.value.sale_name,
       sale_date: this.saleform.value.sale_date,

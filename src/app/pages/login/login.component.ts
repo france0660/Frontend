@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
       password: ['', Validators.required],
     });
     this.createUserForm = this.formBuilder.group({
+      user_id:['0', Validators.required],
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
       nickname: ['', Validators.required],
@@ -92,6 +93,7 @@ export class LoginComponent implements OnInit {
       );
   } else {
     this.httpService.post(API_URL.createUserURL, {
+      user_id: this.createUserForm.value.user_id,
       firstname: this.createUserForm.value.firstname,
       lastname: this.createUserForm.value.lastname,
       nickname: this.createUserForm.value.nickname,
