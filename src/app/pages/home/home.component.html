@@ -1,1 +1,207 @@
-<p>home works!</p>
+<!DOCTYPE html>
+<!-- Created By CodingLab - www.codinglabweb.com -->
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="UTF-8">
+  <!---<title> Responsive Registration Form | CodingLab </title>--->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+  <!-- <form  [formGroup]="sellform" (ngSubmit)="onSubmit()"></form> -->
+  <div class="container">
+    <div class="title">JJ Store</div>
+    <div class="content">
+      <form action="#">
+        <!-- <div class="gender-details">
+            <input type="radio" name="gender" id="dot-1">
+            <input type="radio" name="gender" id="dot-2">
+            <input type="radio" name="gender" id="dot-3">
+            <span class="gender-title">Gender</span>
+            <div class="category">
+              <label for="dot-1">
+              <span class="dot one"></span>
+              <span class="gender">Male</span>
+            </label>
+            <label for="dot-2">
+              <span class="dot two"></span>
+              <span class="gender">Female</span>
+            </label>
+            <label for="dot-3">
+              <span class="dot three"></span>
+              <span class="gender">Prefer not to say</span>
+              </label>
+            </div>
+        </div> -->
+        <form *ngIf="statuspage == 1" [formGroup]="saleform" (ngSubmit)="onSubmit(saleform.value)" (ngSubmit)="getListSale()">
+          <div class="user-details">
+            <div class="input-box">
+              <i class="fas fa-user"></i>
+              <input type="text" placeholder="ชื่อผู้ซื้อ" required formControlName="buyer_name">
+            </div>
+            <div class="input-box">
+              <i class="fas fa-user"></i>
+              <input type="text" placeholder="พนักงานขาย" required formControlName="sale_name">
+            </div>
+            <div class="input-box">
+              <!-- <i class="fas fa-calendar"></i> -->
+              <!-- <md-datepicker ng-model="myDate" md-placeholder="Enter date"></md-datepicker> -->
+              <!-- <input type="text" placeholder="Date" required> -->
+
+              <mat-form-field appearance="fill">
+                <mat-label>Choose a date</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="sale_date">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+
+            </div>
+            <div class="input-box">
+              <span class="details">ชื่อสินค้า</span>
+              <input type="text" placeholder="ชื่อสินค้า" required formControlName="productname">
+            </div>
+            <div class="input-box">
+              <span class="details">จำนวน</span>
+              <input type="text" placeholder="จำนวน" required formControlName="quantity">
+            </div>
+            <div class="input-box">
+              <span class="details">ราคาต่อชิ้น</span>
+              <input type="text" placeholder="ราคา" required formControlName="priceperpiece">
+            </div>
+
+
+
+
+          </div>
+
+          <div class="button">
+            <button
+                    class="bt-sky-blue"
+                    style="font-size: 12px; margin-left: 3px"
+                    type="submit"
+                    
+                    
+                  >
+                    บันทึก
+                  </button>
+            <!-- <input type="submit" value="บันทึก"> -->
+          </div>
+
+          <div class="d-block d-md-flex justify-content-between">
+            <div class="table-responsive mt-15">
+              <table class="table table-hover table-bordered flex-md-nowrap text-nowrap" datatable>
+                <thead>
+                  <tr>
+                    <th>ชื่อสินค้า</th>
+                    <th>จำนวน</th>
+                    <th>ราคาต่อชื้น</th>
+                    <th>รวม</th>
+
+
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr *ngFor="let item of Allproduct">
+                    <td>{{item["productname"]}}</td>
+                    <td>{{item["quantity"]}}</td>
+                    <td>{{item["priceperpiece"]}}</td>
+                    <td>{{item["quantity"]*item["priceperpiece"]}}</td>
+
+
+                  </tr>
+                </tbody>
+
+                <tfoot>
+                  <tr>
+                    <th>ชื่อสินค้า</th>
+                    <th>จำนวน</th>
+                    <th>ราคาต่อชื้น</th>
+                    <th>รวม</th>
+
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+
+          <div class="button">
+            <button
+                    class="bt-sky-blue"
+                    style="font-size: 12px; margin-left: 3px"
+                    (click)="routeTo(2)"
+                  >
+                    คิดเงิน
+                  </button>
+          </div>
+        </form>
+      </form>
+
+
+     
+    
+
+
+
+    </div>
+  </div>
+
+
+  <form *ngIf="statuspage == 2" [formGroup]="saleform" (ngSubmit)="onSubmit(saleform.value)" (ngSubmit)="getListSale()">
+        
+    <div class="d-block d-md-flex justify-content-between">
+      <div class="table-responsive mt-15">
+        <table class="table table-hover table-bordered flex-md-nowrap text-nowrap" datatable>
+          <thead>
+            <tr>
+              <th>ชื่อสินค้า</th>
+              <th>จำนวน</th>
+              <th>ราคาต่อชื้น</th>
+              <th>รวม</th>
+
+
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let item of Allproduct">
+              <td>{{item["productname"]}}</td>
+              <td>{{item["quantity"]}}</td>
+              <td>{{item["priceperpiece"]}}</td>
+              <td>{{item["quantity"]*item["priceperpiece"]}}</td>
+
+
+            </tr>
+          </tbody>
+
+          <tfoot>
+            <tr>
+              <th>ชื่อสินค้า</th>
+              <th>จำนวน</th>
+              <th>ราคาต่อชื้น</th>
+              <th>รวม</th>
+
+            </tr>
+          </tfoot>
+        </table>
+        <div class="button">
+          <button
+                  class="bt-sky-blue"
+                  style="font-size: 12px; margin-left: 3px"
+                  (click)="routeTo(1)"
+                >
+                  เสร็จสิ้น
+                </button>
+        </div>
+      </div>
+    </div>
+
+    
+  </form>
+
+</body>
+
+</html>

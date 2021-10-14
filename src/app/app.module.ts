@@ -56,13 +56,26 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
 import {OverlayModule} from '@angular/cdk/overlay';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { HistorybillComponent } from './pages/historybill/historybill.component';
+import { PlaceordersComponent } from './pages/placeorders/placeorders.component';
+import { OrderlistComponent } from './pages/orderlist/orderlist.component';
+
+
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     HomeComponent,
-    LayoutComponent
+    LayoutComponent,
+    HistorybillComponent,
+    PlaceordersComponent,
+    OrderlistComponent,
+
+
+
     
     
   ],
@@ -123,10 +136,14 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     PortalModule,
     ScrollingModule,
     FontAwesomeModule,
+    
+    // MatDatepickerModule, MatNativeDateModule
+
 
 
   ],
   providers: [],
+  // {provide: MAT_DATE_LOCALE, useValue: 'en-GB'},
   bootstrap: [AppComponent]
 })
 export class AppModule { }

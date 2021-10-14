@@ -109,7 +109,7 @@
     </section>
   </form>
 
-  <form *ngIf="statuspage == 2" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <form *ngIf="statuspage == 2" [formGroup]="createUserForm" (ngSubmit)="submitForm(createUserForm.value)">
     <section
       class="height-100vh d-flex align-items-center page-section-ptb login"
       style="background-image: url(../../../assets/images/2056609.jpg)"
@@ -145,7 +145,7 @@
                   type="text"
                   placeholder="User name"
                   name="web"
-                  formControlName="username"
+                  formControlName="firstname"
                 />
               </div>
               <div class="section-field mb-20">
@@ -156,8 +156,8 @@
                   type="text"
                   placeholder="User name"
                   name="web"
-                  formControlName="username"
-                />
+                  formControlName="lastname"
+                  />
               </div>
               <div class="section-field mb-20">
                 <label class="mb-10" for="name">Nickname* </label>
@@ -167,18 +167,18 @@
                   type="text"
                   placeholder="User name"
                   name="web"
-                  formControlName="username"
+                  formControlName="nickname"
                 />
               </div>
               <div class="section-field mb-20">
                 <label class="mb-10" for="name">User name* </label>
                 <input
-                  id="name"
-                  class="web form-control"
+                  id="Username"
+                  class="Username form-control"
                   type="text"
                   placeholder="User name"
-                  name="web"
-                  formControlName="username"
+                  name="Username"
+                  formControlName="user_name"
                 />
               </div>
               <div class="section-field mb-20">
@@ -212,9 +212,9 @@
               <div class="row">
                 <div class="col">
                   <button
+                    type="submit"
                     class="bt-sky-blue"
                     style="font-size: 12px; margin-left: 3px"
-                    (click)="routeTo(1)"
                   >
                     Create
                   </button>

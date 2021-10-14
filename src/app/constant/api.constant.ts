@@ -4,4 +4,8 @@ export class API_URL {
 
     static TestGet = API_URL.BASE_URL + "/"
     static loginURL = API_URL.BASE_URL + "/api/login"
+    static createUserURL = API_URL.BASE_URL + "/api/createUser"
+    static saleProductURL = API_URL.BASE_URL + "/api/saleProduct"
+    static getListsaleProductURL = API_URL.BASE_URL + "/api/getListsaleProduct"
+
 }

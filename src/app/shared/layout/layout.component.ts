@@ -18,7 +18,12 @@ export class LayoutComponent implements OnInit {
   isSlideMenu: boolean = false;
   public User_detail: any = null;
   showFiller = false;
-  items = [{name:"test1",icon:"home",link:"/login"},{name:"test2",icon:"home",link:"/home"}]
+  items = [{name:"ขายสินค้า",icon:"shopping_cart",link:"/home"},
+          {name:"รายการขายสินค้า",icon:"history",link:"/historybill"},
+          {name:"สั่งซื้อสินค้า",icon:"assignment_returned",link:"/placeorders"},
+          {name:"รายการที่สั่งซื้อ",icon:"all_inbox",link:"/orderlist"},
+          {name:"Log Out",icon:"logout",link:"/login"}]
+
   openOrOff : boolean = true;
   constructor(
  

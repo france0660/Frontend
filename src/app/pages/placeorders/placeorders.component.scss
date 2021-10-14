@@ -45,7 +45,6 @@ body{
 form .user-details .input-box{
   margin-bottom: 15px;
   width: calc(100% / 3 - 20px);
-  color: rgb(19, 18, 18);
 }
 form .input-box span.details{
   display: block;
@@ -65,7 +64,7 @@ form .input-box span.details{
 }
 .user-details .input-box input:focus,
 .user-details .input-box input:valid{
-  border-color: #5c585c;
+  border-color: #9b59b6;
 }
  form .gender-details .gender-title{
   font-size: 20px;

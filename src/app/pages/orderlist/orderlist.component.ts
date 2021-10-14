@@ -5,24 +5,22 @@ import { FormBuilder, FormGroup , Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 
-// const Swal = require('sweetalert2');
-
-
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  selector: 'app-orderlist',
+  templateUrl: './orderlist.component.html',
+  styleUrls: ['./orderlist.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class OrderlistComponent implements OnInit {
   public loginForm: FormGroup;
   public createUserForm: FormGroup;
   public loading: boolean = false
   public statuspage : number = 1
+
   constructor(
     private formBuilder: FormBuilder,
     private httpService: HttpService,
     private router: Router
-  ) {
+  ) { 
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
@@ -34,18 +32,9 @@ export class LoginComponent implements OnInit {
       user_name: ['', Validators.required],
       password: ['', Validators.required],
     });
-    
   }
 
   ngOnInit(): void {
-    this.httpService.get(API_URL.TestGet, {}).subscribe(
-      (res: any) => {
-        console.log(res);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
   }
 
   public onSubmit() {
@@ -84,41 +73,44 @@ export class LoginComponent implements OnInit {
     
   }
   public submitForm(form: any) {
-    if (this.createUserForm.invalid) {
-      Swal.fire(
-          'Input Invalid!',
-          'Please enter all require input',
-          'error'
-      );
-  } else {
     this.httpService.post(API_URL.createUserURL, {
       firstname: this.createUserForm.value.firstname,
       lastname: this.createUserForm.value.lastname,
       nickname: this.createUserForm.value.nickname,
       user_name: this.createUserForm.value.user_name,
       password: this.createUserForm.value.password,
-      
-    }).subscribe(
-          (res: any) => {
-               {
-                  Swal.fire(
-                      'Successful!',
-                      'Create User Success.',
-                      'success'
-                  );
-                  this.routeTo(1)
 
-              } 
-              
-          },
-          (error) => {
-          },
-      );
-  }
+    }).subscribe(
+      (res: any) => {
+        console.log("Status = " + status)
+      }, (error) => {
+        if (error.MSG === 'OK') {
+          this.createUserForm.reset({
+            first_name: '',
+            last_name: '',
+            nickname: '',
+            username: '',
+            password: ''
+          });
+          this.loading = false
+          Swal.fire('Success',
+        'Register complete',
+        'success')
+        } 
+        else {
+          this.loading = false
+          Swal.fire('Not Correct',
+            'Please Try Again!',
+            'error')
+        }
+      }, () => { }
+    )
+    
   }
 
   public routeTo(data:number) {
     this.statuspage = data
     // this.router.navigate(["/home"]);
   }
+
 }
