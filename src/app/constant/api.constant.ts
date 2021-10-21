@@ -5,7 +5,11 @@ export class API_URL {
     static TestGet = API_URL.BASE_URL + "/"
     static loginURL = API_URL.BASE_URL + "/api/login"
     static createUserURL = API_URL.BASE_URL + "/api/createUser"
-    static saleProductURL = API_URL.BASE_URL + "/api/saleProduct"
-    static getListsaleProductURL = API_URL.BASE_URL + "/api/getListsaleProduct"
+    static addproductURL = API_URL.BASE_URL + "/api/addproduct"
+    static getListallProductURL = API_URL.BASE_URL + "/api/getListallProduct"
+    static saleproductURL = API_URL.BASE_URL + "/api/saleproduct"
+    static getListallproductforsaleURL = API_URL.BASE_URL + "/api/getListallproductforsale"
+    static getListallproductforshowURL = API_URL.BASE_URL + "/api/getListallproductforshow"
+    static barcodescanDetailURL = API_URL.BASE_URL + "/api/barcodescanDetail"
 
 }

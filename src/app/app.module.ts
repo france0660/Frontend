@@ -59,7 +59,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HistorybillComponent } from './pages/historybill/historybill.component';
 import { PlaceordersComponent } from './pages/placeorders/placeorders.component';
 import { OrderlistComponent } from './pages/orderlist/orderlist.component';
-
+import { BarcodeScannerLivestreamModule } from "ngx-barcode-scanner";
 
 
 
@@ -136,7 +136,8 @@ import { OrderlistComponent } from './pages/orderlist/orderlist.component';
     PortalModule,
     ScrollingModule,
     FontAwesomeModule,
-    
+    BrowserModule,
+    BarcodeScannerLivestreamModule
     // MatDatepickerModule, MatNativeDateModule
 
 

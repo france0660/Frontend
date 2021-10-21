@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
         (res: any) => {
           if (res.length != 0) {
             this.loading = false
-            this.router.navigate(["/home"]);
+            this.router.navigate(["/placeorders"]);
             console.log(res);
           } else {
             this.loading = false

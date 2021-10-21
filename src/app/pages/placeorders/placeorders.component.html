@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <!-- Created By CodingLab - www.codinglabweb.com -->
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="UTF-8">
-    <!---<title> Responsive Registration Form | CodingLab </title>--->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   </head>
+<head>
+  <meta charset="UTF-8">
+  <!---<title> Responsive Registration Form | CodingLab </title>--->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
 <body>
+  <!-- <form  [formGroup]="sellform" (ngSubmit)="onSubmit()"></form> -->
   <div class="container">
-    <div class="title" >JJ Store</div>
+    <div class="title">JJ Store</div>
     <div class="content">
       <form action="#">
         <!-- <div class="gender-details">
@@ -33,83 +36,187 @@
               </label>
             </div>
         </div> -->
-        <div class="user-details">
-          <div class="input-box">
-            <i class="fas fa-user"></i>
-            <input type="text" placeholder="ชื่อผู้ซื้อ" required>
-          </div>
-          <div class="input-box">
-            <i class="fas fa-user"></i>
-            <input type="text" placeholder="พนักงานขาย" required>
-          </div>
-          <div class="input-box">
-            <i class="fas fa-calendar"></i>
-            <!-- <md-datepicker ng-model="myDate" md-placeholder="Enter date"></md-datepicker> -->
-            <input type="text" placeholder="Date" required>
-          </div>
-          <div class="input-box">
-            <span class="details">ชื่อสินค้า</span>
-            <input type="text" placeholder="ชื่อสินค้า" required>
-          </div>
-          <div class="input-box">
-            <span class="details">จำนวน</span>
-            <input type="text" placeholder="จำนวน" required>
-          </div>
-          <div class="input-box">
-            <span class="details">ราคา</span>
-            <input type="text" placeholder="ราคา" required>
-          </div>
-          
-        </div>
-
-        <div class="button" >
-            <input type="submit" value="บันทึก">
-        </div>
-        
-        <div class="d-block d-md-flex justify-content-between">
-            <div class="table-responsive mt-15">
-                <table class="table table-hover table-bordered flex-md-nowrap text-nowrap" datatable
-                       >
-                    <thead>
-                    <tr>
-                        <th>สินค้าลำดับที่</th>
-                        <th>ชื่อสินค้า</th>
-                        <th>จำนวน</th>
-                        <th>ราคา</th>
-
-                      
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr >
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-
-                        
-                    </tr>
-                    </tbody>
-                    <tfoot>
-                    <tr>
-                        <th>สินค้าลำดับที่</th>
-                        <th>ชื่อสินค้า</th>
-                        <th>จำนวน</th>
-                        <th>ราคา</th>
-
-                    </tr>
-                    </tfoot>
-                </table>
+        <form *ngIf="statuspage == 1" [formGroup]="getdetailbarcodeform"  (ngSubmit)="scanbarcode()" >
+          <div class="user-details">
+            <!-- <div class="input-box">
+              <i class="fas fa-user"></i>
+              <input type="text" placeholder="ชื่อผู้ซื้อ" required formControlName="buyer_name">
+            </div> -->
+            <div class="input-box">
+              <i class="fas fa-user"></i>
+              <input type="text" placeholder="พนักงานขาย" required formControlName="saleproduct_employee">
             </div>
-        </div>
-        
-        <div class="button">
-          <input type="submit" value="คิดเงิน">
-        </div>
+            <!-- <div class="input-box">
+              
+
+              <mat-form-field appearance="fill">
+                <mat-label>Choose a date</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="sale_date">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+
+            </div> -->
+            <div class="input-box">
+              <span class="details">ชื่อสินค้า</span>
+              <input type="text" placeholder="ชื่อสินค้า" required formControlName="saleproduct_name"  >
+            </div>
+            <div class="input-box">
+              <span class="details">จำนวน</span>
+              <input type="text" placeholder="จำนวน" required formControlName="saleproduct_quantity">
+            </div>
+            <div class="input-box">
+              <span class="details">ราคา</span>
+              <input type="text" placeholder="ราคา" required formControlName="saleproduct_price">
+            </div>
+            <div class="input-box">
+              <span class="details">barcode</span>
+              <input type="text" placeholder="code"  formControlName="barcode">
+            </div>
+           
+            
+
+
+
+          </div>
+
+          <div class="button">
+            <button
+                    class="bt-sky-blue"
+                    style="font-size: 12px; margin-left: 3px"
+                    type="submit"
+                    
+                    
+                  >
+                    บันทึก
+                  </button>
+            <!-- <input type="submit" value="บันทึก"> -->
+          </div>
+
+          <div class="d-block d-md-flex justify-content-between">
+            <div class="table-responsive mt-15">
+              <table class="table table-hover table-bordered flex-md-nowrap text-nowrap" datatable>
+                <thead>
+                  <tr>
+                    
+                    <th>ชื่อสินค้า</th>
+                    <th>จำนวน</th>
+                    <th>ราคา</th>
+
+
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr *ngFor="let item of Allcode">
+                    
+                    <!-- <td>{{item.saleproduct_name}}</td> -->
+                    <!-- <td>[item.saleproduct_name]</td> -->
+
+                    <td>{{item["product_name"]}}</td>
+                    <td>{{item["product_quantity"]}}</td>
+                    <td>{{item["product_price"]}}</td>
+
+                    <!-- <td>["saleproduct_name"]</td>
+                    <td>["saleproduct_quantity"]</td>
+                    <td>["saleproduct_price"]</td> -->
+
+                    <!-- <td>{{item["quantity"]*item["priceperpiece"]}}</td> -->
+
+
+                  </tr>
+                </tbody>
+
+                <tfoot>
+                  <tr>
+                    
+                    <th>ชื่อสินค้า</th>
+                    <th>จำนวน</th>
+                    <th>ราคา</th>
+
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+
+          <form  (ngSubmit)="onSubmit()" >
+          <div class="button">
+            <button
+                    class="bt-sky-blue"
+                    style="font-size: 12px; margin-left: 3px"
+                    
+                  >
+                    คิดเงิน
+                  </button>
+          </div>
+          </form>
+        </form>
       </form>
+
+
+     
+    
+
+
+
     </div>
   </div>
 
-</body>
-</html>
 
+  <form *ngIf="statuspage == 2" >
+        
+    <div class="d-block d-md-flex justify-content-between">
+      <div class="table-responsive mt-15">
+        <table class="table table-hover table-bordered flex-md-nowrap text-nowrap" datatable>
+          <thead>
+            <tr>
+              <th>ชื่อสินค้า</th>
+              <th>จำนวน</th>
+              <th>ราคา</th>
+              <th>รวม</th>
+
+
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr *ngFor="let item of Allcode">
+              <td>{{item["product_name"]}}</td>
+              <td>{{item["product_quantity"]}}</td>
+              <td>{{item["product_price"]}}</td>
+              <td>{{item["product_quantity"]*item["product_price"]}}</td>
+
+
+            </tr>
+          </tbody>
+
+          <tfoot>
+            <tr>
+              <th>ชื่อสินค้า</th>
+              <th>จำนวน</th>
+              <th>ราคาต่อชื้น</th>
+              <th>รวม</th>
+
+            </tr>
+          </tfoot>
+        </table>
+        <div class="button">
+          <button
+                  class="bt-sky-blue"
+                  style="font-size: 12px; margin-left: 3px"
+                  (click)="routeTo(1)"
+                  
+                >
+                  เสร็จสิ้น
+                </button>
+        </div>
+      </div>
+    </div>
+
+    
+  </form>
+
+</body>
+
+</html>

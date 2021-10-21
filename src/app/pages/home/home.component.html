@@ -36,9 +36,9 @@
               </label>
             </div>
         </div> -->
-        <form *ngIf="statuspage == 1" [formGroup]="saleform" (ngSubmit)="onSubmit(saleform.value)" (ngSubmit)="getListSale()">
+        <form *ngIf="statuspage == 1" [formGroup]="addproductform" (ngSubmit)="onSubmit(addproductform.value)" (ngSubmit)="getListProduct()" >
           <div class="user-details">
-            <div class="input-box">
+            <!-- <div class="input-box">
               <i class="fas fa-user"></i>
               <input type="text" placeholder="ชื่อผู้ซื้อ" required formControlName="buyer_name">
             </div>
@@ -47,9 +47,7 @@
               <input type="text" placeholder="พนักงานขาย" required formControlName="sale_name">
             </div>
             <div class="input-box">
-              <!-- <i class="fas fa-calendar"></i> -->
-              <!-- <md-datepicker ng-model="myDate" md-placeholder="Enter date"></md-datepicker> -->
-              <!-- <input type="text" placeholder="Date" required> -->
+              
 
               <mat-form-field appearance="fill">
                 <mat-label>Choose a date</mat-label>
@@ -58,20 +56,25 @@
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
 
-            </div>
+            </div> -->
             <div class="input-box">
               <span class="details">ชื่อสินค้า</span>
-              <input type="text" placeholder="ชื่อสินค้า" required formControlName="productname">
+              <input type="text" placeholder="ชื่อสินค้า" required formControlName="product_name"  >
             </div>
             <div class="input-box">
               <span class="details">จำนวน</span>
-              <input type="text" placeholder="จำนวน" required formControlName="quantity">
+              <input type="text" placeholder="จำนวน" required formControlName="product_quantity">
             </div>
             <div class="input-box">
               <span class="details">ราคาต่อชิ้น</span>
-              <input type="text" placeholder="ราคา" required formControlName="priceperpiece">
+              <input type="text" placeholder="ราคา" required formControlName="product_price">
             </div>
-
+            <div class="input-box">
+              <span class="details">barcode</span>
+              <input type="text" placeholder="code"  formControlName="product_barcode">
+            </div>
+           
+            
 
 
 
@@ -95,10 +98,10 @@
               <table class="table table-hover table-bordered flex-md-nowrap text-nowrap" datatable>
                 <thead>
                   <tr>
-                    <th>ชื่อสินค้า</th>
+                    <th>barcode</th>
+                    <th>ชื่อ</th>
                     <th>จำนวน</th>
-                    <th>ราคาต่อชื้น</th>
-                    <th>รวม</th>
+                    <th>ราคาต่อชิ้น</th>
 
 
                   </tr>
@@ -106,10 +109,11 @@
 
                 <tbody>
                   <tr *ngFor="let item of Allproduct">
-                    <td>{{item["productname"]}}</td>
-                    <td>{{item["quantity"]}}</td>
-                    <td>{{item["priceperpiece"]}}</td>
-                    <td>{{item["quantity"]*item["priceperpiece"]}}</td>
+                    <td>{{item["product_barcode"]}}</td>
+                    <td>{{item["product_name"]}}</td>
+                    <td>{{item["product_quantity"]}}</td>
+                    <td>{{item["product_price"]}}</td>
+                    <!-- <td>{{item["quantity"]*item["priceperpiece"]}}</td> -->
 
 
                   </tr>
@@ -117,10 +121,10 @@
 
                 <tfoot>
                   <tr>
-                    <th>ชื่อสินค้า</th>
+                    <th>barcode</th>
+                    <th>ชื่อ</th>
                     <th>จำนวน</th>
-                    <th>ราคาต่อชื้น</th>
-                    <th>รวม</th>
+                    <th>ราคาต่อชิ้น</th>
 
                   </tr>
                 </tfoot>
@@ -128,7 +132,7 @@
             </div>
           </div>
 
-          <div class="button">
+          <!-- <div class="button">
             <button
                     class="bt-sky-blue"
                     style="font-size: 12px; margin-left: 3px"
@@ -136,7 +140,7 @@
                   >
                     คิดเงิน
                   </button>
-          </div>
+          </div> -->
         </form>
       </form>
 
@@ -150,7 +154,7 @@
   </div>
 
 
-  <form *ngIf="statuspage == 2" [formGroup]="saleform" (ngSubmit)="onSubmit(saleform.value)" (ngSubmit)="getListSale()">
+  <!-- <form *ngIf="statuspage == 2" [formGroup]="saleform" (ngSubmit)="onSubmit(saleform.value)" (ngSubmit)="getListSale()">
         
     <div class="d-block d-md-flex justify-content-between">
       <div class="table-responsive mt-15">
@@ -200,7 +204,7 @@
     </div>
 
     
-  </form>
+  </form> -->
 
 </body>
 
