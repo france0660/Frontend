@@ -20,7 +20,7 @@ import { NgIf } from '@angular/common';
 export class PlaceordersComponent implements OnInit {
   Allproduct = [];
   Allcode : any = [];
-
+  userDetail:any;
   public addproductforsaleform: FormGroup;
   public addtotableform: FormGroup;
   public getdetailbarcodeform: FormGroup;
@@ -48,6 +48,7 @@ export class PlaceordersComponent implements OnInit {
       barcode: ['', Validators.required],
     });
     this.getdetailbarcodeform = this.formBuilder.group({
+      saleproduct_employee_id: ['', Validators.required],
       saleproduct_employee: ['', Validators.required],
       saleproduct_name: ['', Validators.required],
       saleproduct_quantity: ['', Validators.required],
@@ -57,6 +58,11 @@ export class PlaceordersComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userDetail =localStorage.getItem('userDetail');
+   this.userDetail=JSON.parse(this.userDetail)
+   console.log(this.userDetail.first_name );
+   this.getdetailbarcodeform.controls.saleproduct_employee.setValue(this.userDetail.first_name+' '+this.userDetail.last_name);
+   this.getdetailbarcodeform.controls.saleproduct_employee_id.setValue(this.userDetail.user_id);
     this.httpService.get(API_URL.getListallProductURL, {}).subscribe(
       (res: any) => {
         this.Allproduct = res;
@@ -98,9 +104,10 @@ export class PlaceordersComponent implements OnInit {
   }
 
   public scanbarcode(){
+    if(this.getdetailbarcodeform.value.barcode){
     this.httpService.get(API_URL.getListallproductforsaleURL, {
-      barcode: this.getdetailbarcodeform.value.barcode
-      
+      barcode: this.getdetailbarcodeform.value.barcode,
+    
     }).subscribe(
       (res: any) => {
         const resData = res[0];
@@ -108,37 +115,56 @@ export class PlaceordersComponent implements OnInit {
         
         this.Allcode.push(resData);
         
-        this.getdetailbarcodeform.controls.saleproduct_name.setValue(this.Allcode.product_name)
-        this.getdetailbarcodeform.controls.saleproduct_quantity.setValue(this.Allcode.product_quantity)  
-        this.getdetailbarcodeform.controls.saleproduct_price.setValue(this.Allcode.product_price)  
+        // this.getdetailbarcodeform.controls.saleproduct_name.setValue(this.Allcode.product_name)
+        // this.getdetailbarcodeform.controls.saleproduct_quantity.setValue(this.Allcode.product_quantity)  
+        // this.getdetailbarcodeform.controls.saleproduct_price.setValue(this.Allcode.product_price)  
         this.getdetailbarcodeform.controls.barcode.reset()      
-        console.log("code", res);
+        console.log("code", this.Allcode);
         // this.Allcode.push(res[0]);
         // const data = res[0]
         // this.Allcode.push(data[0]);
         // console.log(res[0]);
+        
       },
+    
       (error) => {
         console.log(error);
       }
-    );
+   
+    ); 
+  }else{
+       const obj ={
+        product_barcode: null,
+        product_id: 1,
+        product_name: this.getdetailbarcodeform.value.saleproduct_name,
+        product_price: this.getdetailbarcodeform.value.saleproduct_price,
+        product_quantity: this.getdetailbarcodeform.value.saleproduct_quantity
+       }
+       this.Allcode.push(obj);
+       this.getdetailbarcodeform.controls.saleproduct_name.reset()
+       this.getdetailbarcodeform.controls.saleproduct_price.reset()
+       this.getdetailbarcodeform.controls.saleproduct_quantity.reset()
+  }
   }
 
 
   public onSubmit() {
     this.httpService.post(API_URL.saleproductURL, {
-      saleproduct_id: this.addproductforsaleform.value.product_id,
-      saleproduct_employee: this.getdetailbarcodeform.value.saleproduct_employee,
-      saleproduct_name: this.Allcode[0].product_name,
-      saleproduct_quantity: this.Allcode[0].product_quantity,
-      saleproduct_price: this.Allcode[0].product_price,
+      listProductForsale:this.Allcode,
+      getdetailbarcodeform:this.getdetailbarcodeform.value
+      // saleproduct_id: this.addproductforsaleform.value.product_id,
+      // saleproduct_employee: this.getdetailbarcodeform.value.saleproduct_employee,
+      // saleproduct_name: this.Allcode[0].product_name,
+      // saleproduct_quantity: this.Allcode[0].product_quantity,
+      // saleproduct_price: this.Allcode[0].product_price,
       // product_price: this.addproductforsaleform.value.product_price,
-      
-      
-      
     }).subscribe(
       (res: any) => {
         // location.reload()
+        // this.Allcode.controls.product_name.reset()
+        // this.Allcode.controls.product_quantity.reset()
+        // this.Allcode.controls.product_price.reset()
+        // this.Allcode.controls.reset()
         this.routeTo(2)
         
         // this.addproductform.controls.product_barcode.reset()

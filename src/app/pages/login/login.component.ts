@@ -62,7 +62,11 @@ export class LoginComponent implements OnInit {
       .subscribe(
         (res: any) => {
           if (res.length != 0) {
-            this.loading = false
+            this.loading = false;
+            const list = res[0];
+            console.log(list);
+            
+            localStorage.setItem('userDetail',JSON.stringify(list) );//เก็บค่าไว้ใน local
             this.router.navigate(["/placeorders"]);
             console.log(res);
           } else {

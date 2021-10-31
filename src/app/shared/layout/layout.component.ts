@@ -94,6 +94,9 @@ export class LayoutComponent implements OnInit {
   }
   routeTo(data:string) {
     // this.AuthService.logout();
+    if(data == '/login'){
+      localStorage.removeItem('userDetail')
+    }
     this.router.navigate([data]);
   }
 }
