@@ -96,6 +96,8 @@ export class LayoutComponent implements OnInit {
     // this.AuthService.logout();
     if(data == '/login'){
       localStorage.removeItem('userDetail')
+      // localStorage.removeItem('billDetail')
+      // localStorage.removeItem('billDetailprice0')
     }
     this.router.navigate([data]);
   }

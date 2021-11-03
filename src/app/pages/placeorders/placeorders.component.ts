@@ -20,16 +20,32 @@ import { NgIf } from '@angular/common';
 export class PlaceordersComponent implements OnInit {
   Allproduct = [];
   Allcode : any = [];
+  Allbill : any = [];
   userDetail:any;
+  billDetail:any;
+  billDetailprice0:any
   public addproductforsaleform: FormGroup;
   public addtotableform: FormGroup;
   public getdetailbarcodeform: FormGroup;
+  public listbillform: FormGroup;
   public loading: boolean = false
   public statuspage : number = 1
+
+  public total=0
+  public _total = 0
+  private sum=0
+  public sumtotal = 0
+  
+  public value :any = 0;  
+  public _value :any = 0;
+
+  public BillNo : any = [];
+
   constructor(
     private formBuilder: FormBuilder,
     private httpService: HttpService,
-    private router: Router
+    private router: Router,
+     
     ) { 
     this.addproductforsaleform = this.formBuilder.group({
       product_id: ['0', Validators.required],
@@ -54,6 +70,10 @@ export class PlaceordersComponent implements OnInit {
       saleproduct_quantity: ['', Validators.required],
       saleproduct_price: ['', Validators.required],
       barcode: ['', Validators.required],
+      saleproduct_bill_id: ['', Validators.required],
+    });
+    this.listbillform = this.formBuilder.group({
+      saleproduct_bill:['', Validators.required]
     });
   }
 
@@ -147,11 +167,70 @@ export class PlaceordersComponent implements OnInit {
   }
   }
 
+  public createbill(){
+    this.httpService.post(API_URL.createBillURL, {
+      bill_id:'0',
+      bill_price:'0'
+    }).subscribe(
+      (res: any) => {
+        this.value=this.Allcode
+        this._value=this.value  
+    
+        for(let j=0;j<this._value.length;j++){  
+        this.total == 0
+         this.total += this.Allcode[j].product_quantity * this.Allcode[j].product_price
+        //  this._total += this.total
+        //  this.total = 0
+        //  console.log("sum = "+this._total)  
+        }  
+        this._total += this.total
+        this.total = 0
+        console.log("sum = "+this._total)  
+        this.routeTo(2)
+        
+        // location.reload()
+        console.log(res);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  public getlistbill(){
+    this.httpService.get(API_URL.getListallBillURL, {}).subscribe(
+      (res: any) => {
+        const Allbill = res[0];
+        localStorage.setItem('billDetail',JSON.stringify(Allbill) );//เก็บค่าไว้ใน local
+        console.log(res);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+  
+  
+
+ 
+
+  
 
   public onSubmit() {
+    this.billDetail =localStorage.getItem('billDetail');
+   this.billDetail=JSON.parse(this.billDetail)
+   console.log("getBill_id = "+this.billDetail.bill_id );
+   this.getdetailbarcodeform.controls.saleproduct_bill_id.setValue(this.billDetail.bill_id );
+    
+
+
     this.httpService.post(API_URL.saleproductURL, {
       listProductForsale:this.Allcode,
-      getdetailbarcodeform:this.getdetailbarcodeform.value
+      getdetailbarcodeform:this.getdetailbarcodeform.value,
+      // listbillform:this.listbillform.value
+      // listbill:this.billDetail =localStorage.getItem('billDetail'),
+      // listbillstring:JSON.parse(this.billDetail)
+      
       // saleproduct_id: this.addproductforsaleform.value.product_id,
       // saleproduct_employee: this.getdetailbarcodeform.value.saleproduct_employee,
       // saleproduct_name: this.Allcode[0].product_name,
@@ -160,12 +239,34 @@ export class PlaceordersComponent implements OnInit {
       // product_price: this.addproductforsaleform.value.product_price,
     }).subscribe(
       (res: any) => {
+        
+        
+
+
+        // this.billDetail =localStorage.getItem('billDetail');
+        // this.billDetail=JSON.parse(this.billDetail)
+        // this.BillNo = this.billDetail.insertId
         // location.reload()
         // this.Allcode.controls.product_name.reset()
         // this.Allcode.controls.product_quantity.reset()
         // this.Allcode.controls.product_price.reset()
         // this.Allcode.controls.reset()
-        this.routeTo(2)
+
+
+        // this.value=this.Allcode
+        // this._value=this.value  
+    
+        // for(let j=0;j<this._value.length;j++){  
+        // this.total == 0
+        //  this.total += this.Allcode[j].product_quantity * this.Allcode[j].product_price
+        // //  this._total += this.total
+        // //  this.total = 0
+        // //  console.log("sum = "+this._total)  
+        // }  
+        // this._total += this.total
+        // this.total = 0
+        // console.log("sum = "+this._total)  
+        // this.routeTo(2)
         
         // this.addproductform.controls.product_barcode.reset()
         // this.addproductform.controls.product_name.reset()
@@ -181,8 +282,47 @@ export class PlaceordersComponent implements OnInit {
     )
     
   }
+
+
+  public addbillprice(){
+    this.httpService.post(API_URL.addbillpriceURL, {
+      bill_price: this._total,
+      bill_id: this.getdetailbarcodeform.value
+    }).subscribe(
+     
+
+      (res: any) => {
+        
+        console.log(res);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+
+
   public routeTo(data:number) {
     this.statuspage = data
     // this.router.navigate(["/home"]);
   }
+
+  // findsum(){    
+  //   // debugger  
+    
+  //   this.value=this.Allcode
+  //   this._value=this.value  
+    
+  //   for(let j=0;j<this._value.length;j++){  
+  //       this.total == 0
+  //        this.total += this.Allcode[j].product_quantity * this.Allcode[j].product_price
+  //       //  this._total += this.total
+  //       //  this.total = 0
+  //       //  console.log("sum = "+this._total)  
+  //   }  
+  //   this._total += this.total
+  //        this.total = 0
+  //   console.log("sum = "+this._total)  
+  // }  
 }

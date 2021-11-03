@@ -138,7 +138,7 @@
             </div>
           </div>
 
-          <form  (ngSubmit)="onSubmit()" >
+          <form    (ngSubmit)="createbill()" (ngSubmit)="getlistbill()">
           <div class="button">
             <button
                     class="bt-sky-blue"
@@ -174,7 +174,6 @@
               <th>ราคา</th>
               <th>รวม</th>
 
-
             </tr>
           </thead>
 
@@ -187,9 +186,14 @@
 
 
             </tr>
+            <tr>  
+              <td colspan="2"></td>  
+              <td colspan="1"><b>รวมทั้งหมด</b> </td>  
+              <td colspan="1"><b>{{_total}}</b> </td>  
+            </tr>  
           </tbody>
 
-          <tfoot>
+          <!-- <tfoot>
             <tr>
               <th>ชื่อสินค้า</th>
               <th>จำนวน</th>
@@ -197,18 +201,32 @@
               <th>รวม</th>
 
             </tr>
-          </tfoot>
+          </tfoot> -->
         </table>
+        <!-- <table class="table table-hover table-bordered flex-md-nowrap text-nowrap" datatable>
+          <colgroup>
+            <col span="1" width="240">
+
+            </colgroup>
+          <thead>
+          <tr *ngFor="let item of Allcode">
+        <th>รวมทั้งหมด    </th>   
+        <td align="right" >{{item["product_quantity"]*item["product_price"]}}</td>
+          </tr>
+        </thead>
+        </table> -->
+        <form  (ngSubmit)="onSubmit()" (ngSubmit)="addbillprice()">
         <div class="button">
           <button
                   class="bt-sky-blue"
                   style="font-size: 12px; margin-left: 3px"
-                  (click)="routeTo(1)"
+                  
                   
                 >
-                  เสร็จสิ้น
+                  พิมพ์ใบเสร็จ
                 </button>
         </div>
+      </form>
       </div>
     </div>
 
