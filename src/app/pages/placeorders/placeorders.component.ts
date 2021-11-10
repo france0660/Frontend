@@ -8,6 +8,7 @@ import { ViewChild, AfterViewInit } from "@angular/core";
 import { BarcodeScannerLivestreamComponent } from "ngx-barcode-scanner";
 import { Readers } from '@ericblade/quagga2';
 import { NgIf } from '@angular/common';
+import { PrintbillComponent } from '../printbill/printbill.component';
 
 
 
@@ -21,13 +22,16 @@ export class PlaceordersComponent implements OnInit {
   Allproduct = [];
   Allcode : any = [];
   Allbill : any = [];
+  Allcheck : any = [];
   userDetail:any;
   billDetail:any;
+  productDetail:any;
   billDetailprice0:any
   public addproductforsaleform: FormGroup;
   public addtotableform: FormGroup;
   public getdetailbarcodeform: FormGroup;
   public listbillform: FormGroup;
+  public checkform: FormGroup;
   public loading: boolean = false
   public statuspage : number = 1
 
@@ -38,6 +42,7 @@ export class PlaceordersComponent implements OnInit {
   
   public value :any = 0;  
   public _value :any = 0;
+  public check :any
 
   public BillNo : any = [];
 
@@ -74,6 +79,9 @@ export class PlaceordersComponent implements OnInit {
     });
     this.listbillform = this.formBuilder.group({
       saleproduct_bill:['', Validators.required]
+    });
+    this.checkform = this.formBuilder.group({
+     checkscan:['', Validators.required]
     });
   }
 
@@ -124,27 +132,34 @@ export class PlaceordersComponent implements OnInit {
   }
 
   public scanbarcode(){
-    if(this.getdetailbarcodeform.value.barcode){
+    if(this.getdetailbarcodeform.value.barcode ){
     this.httpService.get(API_URL.getListallproductforsaleURL, {
       barcode: this.getdetailbarcodeform.value.barcode,
     
     }).subscribe(
       (res: any) => {
         const resData = res[0];
+        localStorage.setItem('productDetail',JSON.stringify(resData) );//เก็บค่าไว้ใน local
+        this.productDetail =localStorage.getItem('productDetail');
+        this.productDetail=JSON.parse(this.productDetail)
         console.log(resData);
         
-        this.Allcode.push(resData);
+        if(this.productDetail.value == undefined){
+          this.Allcode.push(resData);
         
-        // this.getdetailbarcodeform.controls.saleproduct_name.setValue(this.Allcode.product_name)
-        // this.getdetailbarcodeform.controls.saleproduct_quantity.setValue(this.Allcode.product_quantity)  
-        // this.getdetailbarcodeform.controls.saleproduct_price.setValue(this.Allcode.product_price)  
-        this.getdetailbarcodeform.controls.barcode.reset()      
-        console.log("code", this.Allcode);
-        // this.Allcode.push(res[0]);
-        // const data = res[0]
-        // this.Allcode.push(data[0]);
-        // console.log(res[0]);
-        
+          // this.getdetailbarcodeform.controls.saleproduct_name.setValue(this.Allcode.product_name)
+          // this.getdetailbarcodeform.controls.saleproduct_quantity.setValue(this.Allcode.product_quantity)  
+          // this.getdetailbarcodeform.controls.saleproduct_price.setValue(this.Allcode.product_price)  
+          this.getdetailbarcodeform.controls.barcode.reset()      
+          console.log("code", this.Allcode);
+          // this.Allcode.push(res[0]);
+          // const data = res[0]
+          // this.Allcode.push(data[0]);
+          // console.log(res[0]);
+          
+        }else{
+          window.alert("งง")
+        }
       },
     
       (error) => {
@@ -325,4 +340,10 @@ export class PlaceordersComponent implements OnInit {
   //        this.total = 0
   //   console.log("sum = "+this._total)  
   // }  
+
+
+
+  printPage(){
+    window.print()
+  }
 }

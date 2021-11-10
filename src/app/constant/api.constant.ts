@@ -14,5 +14,6 @@ export class API_URL {
     static createBillURL = API_URL.BASE_URL + "/api/createBill"
     static getListallBillURL = API_URL.BASE_URL + "/api/getListallBill"
     static addbillpriceURL = API_URL.BASE_URL + "/api/addbillprice"
+    static getProductshowinhistoryURL = API_URL.BASE_URL + "/api/getProductshowinhistory"
 
 }

@@ -60,6 +60,8 @@ import { HistorybillComponent } from './pages/historybill/historybill.component'
 import { PlaceordersComponent } from './pages/placeorders/placeorders.component';
 import { OrderlistComponent } from './pages/orderlist/orderlist.component';
 import { BarcodeScannerLivestreamModule } from "ngx-barcode-scanner";
+import { PrintbillComponent } from './pages/printbill/printbill.component';
+import { NgxPrintModule } from 'ngx-print';
 
 
 
@@ -73,6 +75,7 @@ import { BarcodeScannerLivestreamModule } from "ngx-barcode-scanner";
     HistorybillComponent,
     PlaceordersComponent,
     OrderlistComponent,
+    PrintbillComponent,
 
 
 
@@ -137,7 +140,8 @@ import { BarcodeScannerLivestreamModule } from "ngx-barcode-scanner";
     ScrollingModule,
     FontAwesomeModule,
     BrowserModule,
-    BarcodeScannerLivestreamModule
+    BarcodeScannerLivestreamModule,
+    NgxPrintModule
     // MatDatepickerModule, MatNativeDateModule
 
 

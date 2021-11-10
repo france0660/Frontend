@@ -91,6 +91,8 @@
             <!-- <input type="submit" value="บันทึก"> -->
           </div>
 
+          
+
           <div class="d-block d-md-flex justify-content-between">
             <div class="table-responsive mt-15">
               <table class="table table-hover table-bordered flex-md-nowrap text-nowrap" datatable>
@@ -149,6 +151,8 @@
                   </button>
           </div>
           </form>
+
+          
         </form>
       </form>
 
@@ -203,6 +207,8 @@
             </tr>
           </tfoot> -->
         </table>
+
+        
         <!-- <table class="table table-hover table-bordered flex-md-nowrap text-nowrap" datatable>
           <colgroup>
             <col span="1" width="240">
@@ -218,6 +224,8 @@
         <form  (ngSubmit)="onSubmit()" (ngSubmit)="addbillprice()">
         <div class="button">
           <button
+                  printSectionId="forprintbill"
+                  ngxPrint
                   class="bt-sky-blue"
                   style="font-size: 12px; margin-left: 3px"
                   
@@ -235,4 +243,44 @@
 
 </body>
 
+
+<div id="forprintbill">
+  
+  <h1 align = 'center'>JJ Store</h1>
+<h3>my address </h3>
+<h3>my location</h3>
+<hr>
+<table>
+  <thead>
+    <tr>
+    <th>1</th>
+    <th>Commodity1</th>
+    <th>1</th>
+    <th>1</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+
+    <th>2</th>
+    <th>Commodity2</th>
+    <th>2</th>
+    <th>2</th>
+    </tr>
+    <tr>
+
+    <th>3</th>
+    <th>Commodity3</th>
+    <th>3</th>
+    <th>3</th>
+    </tr>
+    <tr>
+<th></th>
+    <th></th>
+    <th>Total</th>
+    <th>6</th>
+    </tr>
+  </tbody>
+</table>
+</div>
 </html>
