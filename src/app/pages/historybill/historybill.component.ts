@@ -21,6 +21,10 @@ import * as moment from 'moment';
 export class HistorybillComponent implements OnInit {
   Allproductfromsearch : any = [];
   public searchdatesaleform: FormGroup;
+  public value :any = 0;  
+  public _value :any = 0;
+  public total=0
+  public _total = 0
   
 
   constructor(
@@ -55,11 +59,31 @@ export class HistorybillComponent implements OnInit {
         const Allforshow = res;
         console.log("res",Allforshow);
         this.Allproductfromsearch=res;
+
+        this.value=this.Allproductfromsearch
+        this._value=this.value  
+    
+        for(let j=0;j<this._value.length;j++){  
+        this.total == 0
+         this.total += this.Allproductfromsearch[j].saleQuantity * this.Allproductfromsearch[j].salePrice
+        //  this._total += this.total
+        //  this.total = 0
+        //  console.log("sum = "+this._total)  
+        }  
+        this._total += this.total
+        this.total = 0
+        console.log("sum = "+this._total)
+        
       },
       (error) => {
         console.log(error);
       }
     );
+  }
+
+  public resetsum(){
+    this._total = 0
+
   }
 
 }

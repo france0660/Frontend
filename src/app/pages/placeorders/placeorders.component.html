@@ -151,6 +151,18 @@
                   </button>
           </div>
           </form>
+          <!-- <div class="button">
+            <button
+                    printSectionId="forprintbill"
+                    ngxPrint
+                    class="bt-sky-blue"
+                    style="font-size: 12px; margin-left: 3px"
+                    
+                    
+                  >
+                    พิมพ์ใบเสร็จ
+                  </button>
+          </div> -->
 
           
         </form>
@@ -231,7 +243,7 @@
                   
                   
                 >
-                  พิมพ์ใบเสร็จ
+                  พิมพ์ใบเสร็จ 
                 </button>
         </div>
       </form>
@@ -244,43 +256,49 @@
 </body>
 
 
-<div id="forprintbill">
-  
+<div id="forprintbill" hidden>
+ 
   <h1 align = 'center'>JJ Store</h1>
-<h3>my address </h3>
-<h3>my location</h3>
+<h2 align = 'center'>บิลเงินสด</h2>
 <hr>
-<table>
-  <thead>
+<h4>ชื่อลูกค้า......................................................................................................................วันที่.......................................</h4>
+<h4>ที่อยู่............................................................................................................................................................................</h4>
+
+<hr>
+<b></b>
+<table align = 'center'>
+  <colgroup span="4" width="200"> 
+  <thead align = 'center'>
     <tr>
-    <th>1</th>
-    <th>Commodity1</th>
-    <th>1</th>
-    <th>1</th>
+      <th>ชื่อสินค้า</th>
+      <th>จำนวน</th>
+      <th>ราคา</th>
+      <th>รวม</th>
+
     </tr>
   </thead>
-  <tbody>
-    <tr>
 
-    <th>2</th>
-    <th>Commodity2</th>
-    <th>2</th>
-    <th>2</th>
-    </tr>
-    <tr>
+  <tbody align = 'center'>
+    <tr *ngFor="let item of Allcode">
+      <td>{{item["product_name"]}}</td>
+      <td>{{item["product_quantity"]}}</td>
+      <td>{{item["product_price"]}}</td>
+      <td>{{item["product_quantity"]*item["product_price"]}}</td>
 
-    <th>3</th>
-    <th>Commodity3</th>
-    <th>3</th>
-    <th>3</th>
+
     </tr>
-    <tr>
-<th></th>
-    <th></th>
-    <th>Total</th>
-    <th>6</th>
-    </tr>
+    <tr>  
+      <td colspan="2"></td>  
+      <td colspan="1"><b>รวมทั้งหมด</b> </td>  
+      <td colspan="1"><b>{{_total}}</b> </td>  
+    </tr>  
   </tbody>
+</colgroup>
 </table>
+<hr><br>
+<h4 >ผู้รับเงิน.....................................................................</h4>
+<hr>
+<h4 align = 'center'>หมายเลขบิล {{_bill}} </h4>
 </div>
+
 </html>

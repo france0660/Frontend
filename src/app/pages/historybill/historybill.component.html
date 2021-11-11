@@ -17,7 +17,7 @@
     <div class="content">
       <form action="#">
         
-        <form [formGroup]="searchdatesaleform" (ngSubmit)="getProductshowinhistory()">
+        <form [formGroup]="searchdatesaleform" (ngSubmit)="getProductshowinhistory()" (ngSubmit)="resetsum()">
           <div class="user-details">
             
             <div class="input-box">
@@ -65,8 +65,8 @@
                     <th>วันที่ขาย</th>
                     <th>หมายเลขบิล</th>
                     <th>ผู้ขาย</th>
-                    <th>จำนวน</th>
-                    <th>ราคา</th>
+                    <th>จำนวน(ชิ้น)</th>
+                    <th>ราคา(ต่อชิ้น)</th>
 
 
                   </tr>
@@ -84,9 +84,14 @@
 
 
                   </tr>
+                  <tr>  
+                    <td colspan="4"></td>  
+                    <td colspan="1"><b>ยอดขายรวมทั้งหมด</b> </td>  
+                    <td colspan="1"><b>{{_total}}</b> </td>  
+                  </tr>  
                 </tbody>
 
-                <tfoot>
+                <!-- <tfoot>
                   <tr>
                     <th>ชื่อสินค้า</th>
                     <th>วันที่ขาย</th>
@@ -96,7 +101,7 @@
                     <th>ราคา</th>
 
                   </tr>
-                </tfoot>
+                </tfoot> -->
               </table>
             </div>
           </div>

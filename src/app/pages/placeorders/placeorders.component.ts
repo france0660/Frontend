@@ -21,6 +21,7 @@ import { PrintbillComponent } from '../printbill/printbill.component';
 export class PlaceordersComponent implements OnInit {
   Allproduct = [];
   Allcode : any = [];
+  Allcodereset : any = [];
   Allbill : any = [];
   Allcheck : any = [];
   userDetail:any;
@@ -37,6 +38,7 @@ export class PlaceordersComponent implements OnInit {
 
   public total=0
   public _total = 0
+  public _bill : any
   private sum=0
   public sumtotal = 0
   
@@ -217,6 +219,21 @@ export class PlaceordersComponent implements OnInit {
       (res: any) => {
         const Allbill = res[0];
         localStorage.setItem('billDetail',JSON.stringify(Allbill) );//เก็บค่าไว้ใน local
+
+        this.billDetail =localStorage.getItem('billDetail');
+        this.billDetail=JSON.parse(this.billDetail)
+
+
+   this.checkform.controls.checkscan.setValue(this.billDetail.bill_no);
+   console.log("check",this.checkform.value.checkscan);
+   
+
+    this._bill = this.billDetail.bill_no 
+    console.log("ThisgetBill_no = "+this._bill );
+
+        // this._bill = this.billDetail.bill_no
+        // console.log("_bill",this.billDetail.bill_no);
+        
         console.log(res);
       },
       (error) => {
@@ -235,7 +252,14 @@ export class PlaceordersComponent implements OnInit {
     this.billDetail =localStorage.getItem('billDetail');
    this.billDetail=JSON.parse(this.billDetail)
    console.log("getBill_id = "+this.billDetail.bill_id );
+   console.log("getBill_no = "+this.billDetail.bill_no );
    this.getdetailbarcodeform.controls.saleproduct_bill_id.setValue(this.billDetail.bill_id );
+   this.checkform.controls.checkscan.setValue(this.billDetail.bill_no);
+   console.log("check",this.checkform.value.checkscan);
+   
+
+    // this._bill = this.billDetail.bill_no 
+    // console.log("ThisgetBill_no = "+this._bill );
     
 
 
@@ -254,7 +278,8 @@ export class PlaceordersComponent implements OnInit {
       // product_price: this.addproductforsaleform.value.product_price,
     }).subscribe(
       (res: any) => {
-        
+        // this._bill = this.billDetail.bill_no 
+        // console.log("ThisgetBill_no = "+this._bill );
         
 
 
@@ -304,9 +329,11 @@ export class PlaceordersComponent implements OnInit {
       bill_price: this._total,
       bill_id: this.getdetailbarcodeform.value
     }).subscribe(
-     
-
       (res: any) => {
+        this.Allcodereset = []
+        this.Allcode = this.Allcodereset
+        this._total = 0
+        this.routeTo(1)
         
         console.log(res);
       },
