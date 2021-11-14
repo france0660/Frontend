@@ -56,8 +56,9 @@
               </mat-form-field>
             </div> -->
             <div class="input-box">
-              <span class="details">ชื่อสินค้า</span>
-              <input type="text" placeholder="ชื่อสินค้า" required formControlName="saleproduct_name"  >
+              <span class="details" >ชื่อสินค้า</span>
+              
+              <input type="text" placeholder="ชื่อสินค้า" required formControlName="saleproduct_name" [(ngModel)]="searchTextinPlaceorder" autocomplete="off">
             </div>
             <div class="input-box">
               <span class="details">จำนวน</span>
@@ -100,8 +101,9 @@
                   <tr>
                     
                     <th>ชื่อสินค้า</th>
-                    <th>จำนวน</th>
-                    <th>ราคา</th>
+                    <th>จำนวน(ชิ้น)</th>
+                    <th>ราคา(ต่อชิ้น)</th>
+                    <th>รวม</th>
 
 
                   </tr>
@@ -116,7 +118,11 @@
                     <td>{{item["product_name"]}}</td>
                     <td>{{item["product_quantity"]}}</td>
                     <td>{{item["product_price"]}}</td>
+                    <td>{{item["product_quantity"]*item["product_price"]}}</td>
 
+
+
+                    
                     <!-- <td>["saleproduct_name"]</td>
                     <td>["saleproduct_quantity"]</td>
                     <td>["saleproduct_price"]</td> -->
@@ -131,8 +137,9 @@
                   <tr>
                     
                     <th>ชื่อสินค้า</th>
-                    <th>จำนวน</th>
-                    <th>ราคา</th>
+                    <th>จำนวน(ชิ้น)</th>
+                    <th>ราคา(ต่อชิ้น)</th>
+                    <th>รวม</th>
 
                   </tr>
                 </tfoot>
@@ -170,7 +177,76 @@
 
 
      
+      <form *ngIf="statuspage == 2" >
+        
+        <div class="d-block d-md-flex justify-content-between">
+          <div class="table-responsive mt-15">
+            <table class="table table-hover table-bordered flex-md-nowrap text-nowrap" datatable>
+              <thead>
+                <tr>
+                  <th>ชื่อสินค้า</th>
+                  <th>จำนวน</th>
+                  <th>ราคา</th>
+                  <th>รวม</th>
     
+                </tr>
+              </thead>
+    
+              <tbody>
+                <tr *ngFor="let item of Allcode">
+                  <td>{{item["product_name"]}}</td>
+                  <td>{{item["product_quantity"]}}</td>
+                  <td>{{item["product_price"]}}</td>
+                  <td>{{item["product_quantity"]*item["product_price"]}}</td>
+    
+    
+                </tr>
+                <tr>  
+                  <td colspan="2"></td>  
+                  <td colspan="1"><b>รวมทั้งหมด</b> </td>  
+                  <td colspan="1"><b>{{_total}}</b> </td>  
+                </tr>  
+              </tbody>
+ 
+            </table>
+    
+            
+            <div class="user-details">
+            <form  (ngSubmit)="onSubmit()" (ngSubmit)="addbillprice()">
+            <div class="button">
+              <button
+                      printSectionId="cashbill"
+                      ngxPrint
+                      class="bt-sky-blue"
+                      style="font-size: 12px; margin-left: 3px"
+                      
+                      
+                    >
+                      บิลเงินสด 
+                    </button>
+            </div>
+            </form>
+    
+          <form  (ngSubmit)="onSubmit()" (ngSubmit)="addbillprice()">
+            <div class="button">
+              <button
+                      printSectionId="creditbill"
+                      ngxPrint
+                      class="bt-sky-blue"
+                      style="font-size: 12px; margin-left: 3px"
+                      
+                      
+                    >
+                      บิลเงินเชื่อ 
+                    </button>
+            </div>
+          </form>
+        </div>
+          </div>
+        </div>
+    
+        
+      </form>
 
 
 
@@ -178,87 +254,14 @@
   </div>
 
 
-  <form *ngIf="statuspage == 2" >
-        
-    <div class="d-block d-md-flex justify-content-between">
-      <div class="table-responsive mt-15">
-        <table class="table table-hover table-bordered flex-md-nowrap text-nowrap" datatable>
-          <thead>
-            <tr>
-              <th>ชื่อสินค้า</th>
-              <th>จำนวน</th>
-              <th>ราคา</th>
-              <th>รวม</th>
-
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr *ngFor="let item of Allcode">
-              <td>{{item["product_name"]}}</td>
-              <td>{{item["product_quantity"]}}</td>
-              <td>{{item["product_price"]}}</td>
-              <td>{{item["product_quantity"]*item["product_price"]}}</td>
-
-
-            </tr>
-            <tr>  
-              <td colspan="2"></td>  
-              <td colspan="1"><b>รวมทั้งหมด</b> </td>  
-              <td colspan="1"><b>{{_total}}</b> </td>  
-            </tr>  
-          </tbody>
-
-          <!-- <tfoot>
-            <tr>
-              <th>ชื่อสินค้า</th>
-              <th>จำนวน</th>
-              <th>ราคาต่อชื้น</th>
-              <th>รวม</th>
-
-            </tr>
-          </tfoot> -->
-        </table>
-
-        
-        <!-- <table class="table table-hover table-bordered flex-md-nowrap text-nowrap" datatable>
-          <colgroup>
-            <col span="1" width="240">
-
-            </colgroup>
-          <thead>
-          <tr *ngFor="let item of Allcode">
-        <th>รวมทั้งหมด    </th>   
-        <td align="right" >{{item["product_quantity"]*item["product_price"]}}</td>
-          </tr>
-        </thead>
-        </table> -->
-        <form  (ngSubmit)="onSubmit()" (ngSubmit)="addbillprice()">
-        <div class="button">
-          <button
-                  printSectionId="forprintbill"
-                  ngxPrint
-                  class="bt-sky-blue"
-                  style="font-size: 12px; margin-left: 3px"
-                  
-                  
-                >
-                  พิมพ์ใบเสร็จ 
-                </button>
-        </div>
-      </form>
-      </div>
-    </div>
-
-    
-  </form>
+  
 
 </body>
 
 
-<div id="forprintbill" hidden>
+<div id="cashbill" hidden>
  
-  <h1 align = 'center'>JJ Store</h1>
+  <h6>หมายเลขบิล {{_bill}} </h6><h1 align = 'center'>JJ Store</h1>
 <h2 align = 'center'>บิลเงินสด</h2>
 <hr>
 <h4>ชื่อลูกค้า......................................................................................................................วันที่.......................................</h4>
@@ -297,8 +300,64 @@
 </table>
 <hr><br>
 <h4 >ผู้รับเงิน.....................................................................</h4>
-<hr>
-<h4 align = 'center'>หมายเลขบิล {{_bill}} </h4>
+
+
 </div>
+
+
+
+<div id="creditbill" hidden>
+ 
+  <h6>หมายเลขบิล {{_bill}} </h6><h1 align = 'center'>JJ Store</h1>
+<h2 align = 'center'>บิลเงินเชื่อ</h2>
+<hr>
+<h4>ชื่อลูกค้า......................................................................................................................วันที่.......................................</h4>
+<h4>ที่อยู่............................................................................................................................................................................</h4>
+
+<hr>
+<b></b>
+<table align = 'center'>
+  <colgroup span="4" width="200"> 
+  <thead align = 'center'>
+    <tr>
+      <th>ชื่อสินค้า</th>
+      <th>จำนวน</th>
+      <th>ราคา</th>
+      <th>รวม</th>
+
+    </tr>
+  </thead>
+
+  <tbody align = 'center'>
+    <tr *ngFor="let item of Allcode">
+      <td>{{item["product_name"]}}</td>
+      <td>{{item["product_quantity"]}}</td>
+      <td>{{item["product_price"]}}</td>
+      <td>{{item["product_quantity"]*item["product_price"]}}</td>
+
+
+    </tr>
+    <tr>  
+      <td colspan="2"></td>  
+      <td colspan="1"><b>รวมทั้งหมด</b> </td>  
+      <td colspan="1"><b>{{_total}}</b> </td>  
+    </tr>  
+  </tbody>
+</colgroup>
+</table>
+<hr><br>
+<h4 >ผู้วางบิล.....................................................................&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ผู้รับวางบิล........................................................................</h4>
+
+
+</div>
+
+<!-- <div hidden>
+  <ul>
+    <li *ngFor="let item of testsearch | filter:searchTextinPlaceorder">
+      {{ item }}
+    </li>
+  </ul>
+
+</div> -->
 
 </html>

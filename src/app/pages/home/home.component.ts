@@ -14,10 +14,15 @@ import { Readers } from '@ericblade/quagga2';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  searchTextinHome:any ;
+  dtOptions: any = {};
+  
   Allproduct = [];
   Allcode :any;
+  ForeditProduct :any;
   public addproductform: FormGroup;
   public scanbarcodeform: FormGroup;
+  public editstockproductform: FormGroup;
   public loading: boolean = false
   public statuspage : number = 1
   constructor(
@@ -41,13 +46,20 @@ export class HomeComponent implements OnInit {
       barcode_price: ['', Validators.required],
       barcode: ['', Validators.required],
     });
+    this.editstockproductform = this.formBuilder.group({
+      product_id: ['0', Validators.required],
+      product_barcode: ['', Validators.required],
+      product_name: ['', Validators.required],
+      product_quantity: ['', Validators.required],
+      product_price: ['', Validators.required],
+    });
   }
 
   ngOnInit(): void {
     this.httpService.get(API_URL.getListallProductURL, {}).subscribe(
       (res: any) => {
+        
         this.Allproduct = res;
-        // location.reload()
         console.log(res);
       },
       (error) => {
@@ -112,8 +124,64 @@ export class HomeComponent implements OnInit {
         // });
       }, 
     )
-    
   }
+
+      
+  public editstock(item:any){
+    this.httpService.get(API_URL.getProductforEditURL, {
+      senditem : item.product_id
+    }).subscribe(
+      (res: any) => {
+        this.ForeditProduct = res[0];
+        console.log("editproduct = ",this.ForeditProduct);
+        this.editstockproductform.controls.product_id.setValue(this.ForeditProduct.product_id);
+        this.editstockproductform.controls.product_barcode.setValue(this.ForeditProduct.product_barcode);
+        this.editstockproductform.controls.product_name.setValue(this.ForeditProduct.product_name);
+        this.editstockproductform.controls.product_quantity.setValue(this.ForeditProduct.product_quantity);
+        this.editstockproductform.controls.product_price.setValue(this.ForeditProduct.product_price);
+        this.routeTo(2)
+      },
+      (error) => {
+        // console.log(error);
+      }
+    );
+  }
+
+  public submitEditstock(){
+    this.httpService.post(API_URL.submitEditstockproductURL, {
+      // submitEditstockid: this.editstockproductform.value.product_id,
+      // submitEditstockbarcode: this.editstockproductform.value.product_barcode,
+      // submitEditstockname: this.editstockproductform.value.product_name,
+      // submitEditstockquantity: this.editstockproductform.value.product_quantity,
+      // submitEditstockprice: this.editstockproductform.value.product_price,
+      Allofsubmiteditstock : this.editstockproductform.value
+    }).subscribe(
+      (res: any) => {
+        {
+          Swal.fire(
+              'Successful!',
+              'Edit Stock Product Seccess.',
+              'success'
+          );
+          this.routeTo(1)
+
+      } 
+        
+        
+      },
+      (error) => {
+        // console.log(error);
+      }
+    );
+    this.getListProduct()
+  }
+
+  public cancel(){
+    this.routeTo(1)
+
+  }
+
+
   public routeTo(data:number) {
     this.statuspage = data
     // this.router.navigate(["/home"]);

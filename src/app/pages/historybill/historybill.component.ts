@@ -20,11 +20,16 @@ import * as moment from 'moment';
 })
 export class HistorybillComponent implements OnInit {
   Allproductfromsearch : any = [];
+  public statuspage : number = 1
   public searchdatesaleform: FormGroup;
+  public edithistorybillform: FormGroup;
   public value :any = 0;  
   public _value :any = 0;
   public total=0
   public _total = 0
+  searchTextinHistorybill:any ;
+  ForeditHistorybill :any;
+  
   
 
   constructor(
@@ -35,7 +40,17 @@ export class HistorybillComponent implements OnInit {
   ) { 
     this.searchdatesaleform = this.formBuilder.group({
       startDate: calendar.getToday(),
-      endDate: calendar.getToday()
+      endDate: calendar.getToday(),
+      search : ['', Validators.required],
+    });
+    this.edithistorybillform = this.formBuilder.group({
+      saleId : ['0', Validators.required],
+      saleProductname : ['', Validators.required],
+      saleDate : ['', Validators.required ],
+      billNo : ['', Validators.required],
+      firstNameAndLastname : ['', Validators.required],
+      saleQuantity : ['', Validators.required],
+      salePrice : ['', Validators.required],
     });
   }
 
@@ -81,9 +96,66 @@ export class HistorybillComponent implements OnInit {
     );
   }
 
+
+  public editHistoryBill(item:any){
+    this.httpService.get(API_URL.getHistorysaleforEditURL, {
+      senditem : item.saleId
+    }).subscribe(
+      (res: any) => {
+        this.ForeditHistorybill = res[0];
+        console.log("editproduct = ",this.ForeditHistorybill);
+        this.edithistorybillform.controls.saleId.setValue(this.ForeditHistorybill.saleId);
+        this.edithistorybillform.controls.saleProductname.setValue(this.ForeditHistorybill.saleProductname);
+        this.edithistorybillform.controls.saleDate.setValue(this.ForeditHistorybill.saleDate );
+        this.edithistorybillform.controls.billNo.setValue(this.ForeditHistorybill.billNo);
+        this.edithistorybillform.controls.firstNameAndLastname.setValue(this.ForeditHistorybill.firstName+' '+this.ForeditHistorybill.lastName);
+        this.edithistorybillform.controls.saleQuantity.setValue(this.ForeditHistorybill.saleQuantity);
+        this.edithistorybillform.controls.salePrice.setValue(this.ForeditHistorybill.salePrice);
+        this.routeTo(2)
+      },
+      (error) => {
+        // console.log(error);
+      }
+    );
+  }
+
+  public submitEditHistoryBill(){
+    this.httpService.post(API_URL.submitEditHistorysaleURL, {
+      Allofsubmitedithistorybill : this.edithistorybillform.value
+    }).subscribe(
+      (res: any) => {
+        {
+          Swal.fire(
+              'Successful!',
+              'Edit Stock Product Seccess.',
+              'success'
+          );
+          this.routeTo(1)
+
+      } 
+        
+        
+      },
+      (error) => {
+        // console.log(error);
+      }
+    );
+      this.getProductshowinhistory()
+  }
+
   public resetsum(){
     this._total = 0
 
+  }
+
+  public cancel(){
+    this.routeTo(1)
+
+  }
+
+  public routeTo(data:number) {
+    this.statuspage = data
+    // this.router.navigate(["/home"]);
   }
 
 }

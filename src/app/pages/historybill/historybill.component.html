@@ -17,7 +17,7 @@
     <div class="content">
       <form action="#">
         
-        <form [formGroup]="searchdatesaleform" (ngSubmit)="getProductshowinhistory()" (ngSubmit)="resetsum()">
+        <form *ngIf="statuspage == 1" [formGroup]="searchdatesaleform" (ngSubmit)="getProductshowinhistory()" (ngSubmit)="resetsum()">
           <div class="user-details">
             
             <div class="input-box">
@@ -34,6 +34,11 @@
 
               <!-- <input type="text" placeholder="จำนวน" required formControlName="product_quantity"> -->
             </div>
+
+            <div class="input-box">
+              <span class="details">ค้นหา</span>
+              <input type="text" placeholder="ชื่อสินค้า หรือ หมายเลขบิล" required formControlName="search" [(ngModel)]="searchTextinHistorybill" autocomplete="off" >
+            </div>
             
             
            
@@ -49,7 +54,7 @@
                   >
                     ค้นหา
                   </button>
-            <!-- <input type="submit" value="บันทึก"> -->
+
           </div>
 
          
@@ -67,13 +72,15 @@
                     <th>ผู้ขาย</th>
                     <th>จำนวน(ชิ้น)</th>
                     <th>ราคา(ต่อชิ้น)</th>
+                    <th>รวม</th>
+                    <th>แก้ไข</th>
 
 
                   </tr>
                 </thead>
 
                 <tbody>
-                  <tr *ngFor="let item of Allproductfromsearch">
+                  <tr *ngFor="let item of Allproductfromsearch | filter:searchTextinHistorybill">
                     <!-- <td data-sort='YYYYMMDD'>DD/MM/YYYY</td> -->
                     <td>{{item["saleProductname"]}}</td>
                     <td>{{item["saleDate"]| date : 'yyyy/MM/dd'}}</td>
@@ -81,11 +88,17 @@
                     <td>{{item["firstName"]}} {{item["lastName"]}}</td>
                     <td>{{item["saleQuantity"]}}</td>
                     <td>{{item["salePrice"]}}</td>
+                    <td>{{item["saleQuantity"]*item["salePrice"]}}</td>
+                    <td>
+                      <button type="button" class="btn btn-warning btn-sm" 
+                              (click)="editHistoryBill(item);" ><i class="fa fa-pencil">แก้ไข</i>
+                      </button>
+                  </td>
 
 
                   </tr>
                   <tr>  
-                    <td colspan="4"></td>  
+                    <td colspan="5"></td>  
                     <td colspan="1"><b>ยอดขายรวมทั้งหมด</b> </td>  
                     <td colspan="1"><b>{{_total}}</b> </td>  
                   </tr>  
@@ -112,7 +125,77 @@
 
 
      
-    
+      <form *ngIf="statuspage == 2" [formGroup]="edithistorybillform">
+        
+        <div class="user-details">
+          
+          <div class="input-box">
+            <span class="details">ชื่อสินค้า</span>
+            <input type="text" placeholder="ชื่อสินค้า" required formControlName="saleProductname" >
+          </div>
+          <div class="input-box">
+            <span class="details">วันที่ขาย</span>
+            <input readonly type="text" placeholder="วันที่ขาย" required formControlName="saleDate" >
+          </div>
+          <div class="input-box">
+            <span class="details">หมายเลขบิล</span>
+            <input readonly type="text" placeholder="หมายเลขบิล" required formControlName="billNo">
+          </div>
+          <div class="input-box">
+            <span class="details">ผู้ขาย</span>
+            <input readonly type="text" placeholder="ผู้ขาย"  formControlName="firstNameAndLastname">
+          </div>
+          <div class="input-box">
+            <span class="details">จำนวน(ชิ้น)</span>
+            <input readonly type="text" placeholder="จำนวน(ชิ้น)"  formControlName="saleQuantity">
+          </div>
+          <div class="input-box">
+            <span class="details">ราคา(ต่อชิ้น)</span>
+            <input readonly type="text" placeholder="ราคา(ต่อชิ้น)" required formControlName="salePrice">
+          </div>
+        
+         
+          
+      
+      
+      
+        </div>
+
+        <div class="user-details">
+          <form   (ngSubmit)="submitEditHistoryBill()" >
+        <div class="button">
+          <button
+                  class="bt-sky-blue"
+                  style="font-size: 12px; margin-left: 3px"
+                  type="submit"
+                  
+                  
+                >
+                  บันทึก
+                </button>
+          <!-- <input type="submit" value="บันทึก"> -->
+        </div>
+      </form>
+
+        <form   (ngSubmit)="cancel()" >
+        <div class="button">
+          <button
+                  class="bt-sky-blue"
+                  style="font-size: 12px; margin-left: 3px"
+                  type="submit"
+                  
+                  
+                >
+                  ยกเลิก
+                </button>
+          <!-- <input type="submit" value="บันทึก"> -->
+        </div>
+      </form>
+
+      </div>
+        
+      </form>
+
 
 
 

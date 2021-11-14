@@ -59,7 +59,7 @@
             </div> -->
             <div class="input-box">
               <span class="details">ชื่อสินค้า</span>
-              <input type="text" placeholder="ชื่อสินค้า" required formControlName="product_name"  >
+              <input type="text" placeholder="ชื่อสินค้า" required formControlName="product_name" [(ngModel)]="searchTextinHome" autocomplete="off" >
             </div>
             <div class="input-box">
               <span class="details">จำนวน</span>
@@ -95,24 +95,38 @@
 
           <div class="d-block d-md-flex justify-content-between">
             <div class="table-responsive mt-15">
-              <table class="table table-hover table-bordered flex-md-nowrap text-nowrap" datatable>
+              <table class="table table-hover table-bordered flex-md-nowrap text-nowrap" datatable >
                 <thead>
                   <tr>
                     <th>barcode</th>
                     <th>ชื่อ</th>
                     <th>จำนวน</th>
                     <th>ราคาต่อชิ้น</th>
+                    <th>แก้ไข</th>
 
 
                   </tr>
                 </thead>
 
                 <tbody>
-                  <tr *ngFor="let item of Allproduct">
+                  <tr *ngFor="let item of Allproduct | filter:searchTextinHome">
                     <td>{{item["product_barcode"]}}</td>
                     <td>{{item["product_name"]}}</td>
                     <td>{{item["product_quantity"]}}</td>
                     <td>{{item["product_price"]}}</td>
+
+
+                    <td>
+                      <button type="button" class="btn btn-warning btn-sm" 
+                              (click)="editstock(item);" ><i class="fa fa-pencil">แก้ไข</i>
+                      </button>
+                  </td>
+
+                  <!-- <td>
+                    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
+                            data-target="#modalEditFloor" (click)="editRoom(item);"><i class="fa fa-pencil"></i>
+                    </button>
+                </td> -->
                     <!-- <td>{{item["quantity"]*item["priceperpiece"]}}</td> -->
 
 
@@ -125,6 +139,7 @@
                     <th>ชื่อ</th>
                     <th>จำนวน</th>
                     <th>ราคาต่อชิ้น</th>
+                    <th>แก้ไข</th>
 
                   </tr>
                 </tfoot>
@@ -146,7 +161,67 @@
 
 
      
-    
+      <form *ngIf="statuspage == 2" [formGroup]="editstockproductform">
+        
+        <div class="user-details">
+          
+          <div class="input-box">
+            <span class="details">ชื่อสินค้า</span>
+            <input type="text" placeholder="ชื่อสินค้า" required formControlName="product_name" >
+          </div>
+          <div class="input-box">
+            <span class="details">จำนวน</span>
+            <input type="text" placeholder="จำนวน" required formControlName="product_quantity">
+          </div>
+          <div class="input-box">
+            <span class="details">ราคาต่อชิ้น</span>
+            <input type="text" placeholder="ราคาต่อชิ้น" required formControlName="product_price">
+          </div>
+          <div class="input-box">
+            <span class="details">barcode</span>
+            <input type="text" placeholder="barcode"  formControlName="product_barcode">
+          </div>
+         
+          
+      
+      
+      
+        </div>
+
+        <div class="user-details">
+        <form   (ngSubmit)="submitEditstock()" >
+        <div class="button">
+          <button
+                  class="bt-sky-blue"
+                  style="font-size: 12px; margin-left: 3px"
+                  type="submit"
+                  
+                  
+                >
+                  บันทึก
+                </button>
+          <!-- <input type="submit" value="บันทึก"> -->
+        </div>
+      </form>
+
+        <form   (ngSubmit)="cancel()" >
+          <div class="button">
+            <button
+                    class="bt-sky-blue"
+                    style="font-size: 12px; margin-left: 3px"
+                    type="submit"
+                    
+                    
+                  >
+                    ยกเลิก
+                  </button>
+            <!-- <input type="submit" value="บันทึก"> -->
+          </div>
+        </form>
+      </div>
+      
+        
+      </form>
 
 
 
@@ -154,58 +229,10 @@
   </div>
 
 
-  <!-- <form *ngIf="statuspage == 2" [formGroup]="saleform" (ngSubmit)="onSubmit(saleform.value)" (ngSubmit)="getListSale()">
-        
-    <div class="d-block d-md-flex justify-content-between">
-      <div class="table-responsive mt-15">
-        <table class="table table-hover table-bordered flex-md-nowrap text-nowrap" datatable>
-          <thead>
-            <tr>
-              <th>ชื่อสินค้า</th>
-              <th>จำนวน</th>
-              <th>ราคาต่อชื้น</th>
-              <th>รวม</th>
-
-
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr *ngFor="let item of Allproduct">
-              <td>{{item["productname"]}}</td>
-              <td>{{item["quantity"]}}</td>
-              <td>{{item["priceperpiece"]}}</td>
-              <td>{{item["quantity"]*item["priceperpiece"]}}</td>
-
-
-            </tr>
-          </tbody>
-
-          <tfoot>
-            <tr>
-              <th>ชื่อสินค้า</th>
-              <th>จำนวน</th>
-              <th>ราคาต่อชื้น</th>
-              <th>รวม</th>
-
-            </tr>
-          </tfoot>
-        </table>
-        <div class="button">
-          <button
-                  class="bt-sky-blue"
-                  style="font-size: 12px; margin-left: 3px"
-                  (click)="routeTo(1)"
-                >
-                  เสร็จสิ้น
-                </button>
-        </div>
-      </div>
-    </div>
-
-    
-  </form> -->
+  
 
 </body>
+
+
 
 </html>

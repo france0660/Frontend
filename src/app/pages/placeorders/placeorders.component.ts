@@ -13,6 +13,8 @@ import { PrintbillComponent } from '../printbill/printbill.component';
 
 
 
+
+
 @Component({
   selector: 'app-placeorders',
   templateUrl: './placeorders.component.html',
@@ -20,6 +22,7 @@ import { PrintbillComponent } from '../printbill/printbill.component';
 })
 export class PlaceordersComponent implements OnInit {
   Allproduct = [];
+  testsearch = [];
   Allcode : any = [];
   Allcodereset : any = [];
   Allbill : any = [];
@@ -28,6 +31,7 @@ export class PlaceordersComponent implements OnInit {
   billDetail:any;
   productDetail:any;
   billDetailprice0:any
+  searchTextinPlaceorder:any ;
   public addproductforsaleform: FormGroup;
   public addtotableform: FormGroup;
   public getdetailbarcodeform: FormGroup;
@@ -74,7 +78,7 @@ export class PlaceordersComponent implements OnInit {
       saleproduct_employee_id: ['', Validators.required],
       saleproduct_employee: ['', Validators.required],
       saleproduct_name: ['', Validators.required],
-      saleproduct_quantity: ['', Validators.required],
+      saleproduct_quantity: ['1', Validators.required],
       saleproduct_price: ['', Validators.required],
       barcode: ['', Validators.required],
       saleproduct_bill_id: ['', Validators.required],
@@ -96,6 +100,7 @@ export class PlaceordersComponent implements OnInit {
     this.httpService.get(API_URL.getListallProductURL, {}).subscribe(
       (res: any) => {
         this.Allproduct = res;
+        
         // location.reload()
         console.log(res);
       },
@@ -124,6 +129,8 @@ export class PlaceordersComponent implements OnInit {
     this.httpService.get(API_URL.getListallproductforshowURL, {}).subscribe(
       (res: any) => {
         this.Allproduct = res;
+        this.testsearch = this.Allproduct
+        
         // location.reload()
         console.log(res);
       },
@@ -144,15 +151,19 @@ export class PlaceordersComponent implements OnInit {
         localStorage.setItem('productDetail',JSON.stringify(resData) );//เก็บค่าไว้ใน local
         this.productDetail =localStorage.getItem('productDetail');
         this.productDetail=JSON.parse(this.productDetail)
-        console.log(resData);
-        
+        resData.product_quantity = this.getdetailbarcodeform.value.saleproduct_quantity
         if(this.productDetail.value == undefined){
+          console.log("resdata productquantity = ",resData.product_quantity);
+          
           this.Allcode.push(resData);
-        
+          
+          // console.log("code quantity "+this.Allcode.product_quantity);
+          // this.Allcode.product_quantity = this.getdetailbarcodeform.value.saleproduct_quantity
           // this.getdetailbarcodeform.controls.saleproduct_name.setValue(this.Allcode.product_name)
           // this.getdetailbarcodeform.controls.saleproduct_quantity.setValue(this.Allcode.product_quantity)  
           // this.getdetailbarcodeform.controls.saleproduct_price.setValue(this.Allcode.product_price)  
-          this.getdetailbarcodeform.controls.barcode.reset()      
+          this.getdetailbarcodeform.controls.barcode.reset()   
+          this.getdetailbarcodeform.controls.saleproduct_quantity.setValue("1")   
           console.log("code", this.Allcode);
           // this.Allcode.push(res[0]);
           // const data = res[0]
