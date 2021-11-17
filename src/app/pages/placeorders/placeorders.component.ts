@@ -171,7 +171,7 @@ export class PlaceordersComponent implements OnInit {
           // console.log(res[0]);
           
         }else{
-          window.alert("งง")
+          window.alert(" ")
         }
       },
     
@@ -192,6 +192,7 @@ export class PlaceordersComponent implements OnInit {
        this.getdetailbarcodeform.controls.saleproduct_name.reset()
        this.getdetailbarcodeform.controls.saleproduct_price.reset()
        this.getdetailbarcodeform.controls.saleproduct_quantity.reset()
+       this.getdetailbarcodeform.controls.saleproduct_quantity.setValue("1") 
   }
   }
 

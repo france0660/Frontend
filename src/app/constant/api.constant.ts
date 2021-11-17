@@ -19,5 +19,6 @@ export class API_URL {
     static getHistorysaleforEditURL = API_URL.BASE_URL + "/api/getHistorysaleforEdit"
     static submitEditstockproductURL = API_URL.BASE_URL + "/api/submitEditstockproduct"
     static submitEditHistorysaleURL = API_URL.BASE_URL + "/api/submitEditHistorysale"
+    static deleteStockproductURL = API_URL.BASE_URL + "/api/deleteStockproduct"
 
 }

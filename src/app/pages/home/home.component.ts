@@ -181,6 +181,30 @@ export class HomeComponent implements OnInit {
 
   }
 
+  // public deleteStockproduct(){
+  //   this.httpService.delete(API_URL.deleteStockproductURL, {
+  //     sendforDeletestock : this.editstockproductform.value
+  //   }).subscribe(
+  //     (res: any) => {
+  //       {
+  //         Swal.fire(
+  //             'Successful!',
+  //             'Delete Product Seccess.',
+  //             'success'
+  //         );
+  //         this.routeTo(1)
+
+  //     } 
+        
+        
+  //     },
+  //     (error) => {
+  //       // console.log(error);
+  //     }
+  //   );
+  //   this.getListProduct()
+  // }
+
 
   public routeTo(data:number) {
     this.statuspage = data

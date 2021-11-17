@@ -212,7 +212,7 @@
     
             
             <div class="user-details">
-            <form  (ngSubmit)="onSubmit()" (ngSubmit)="addbillprice()">
+            <form (ngSubmit)="getlistbill()"  (ngSubmit)="onSubmit()" (ngSubmit)="addbillprice()">
             <div class="button">
               <button
                       printSectionId="cashbill"
@@ -227,7 +227,7 @@
             </div>
             </form>
     
-          <form  (ngSubmit)="onSubmit()" (ngSubmit)="addbillprice()">
+          <form (ngSubmit)="getlistbill()" (ngSubmit)="onSubmit()" (ngSubmit)="addbillprice()">
             <div class="button">
               <button
                       printSectionId="creditbill"

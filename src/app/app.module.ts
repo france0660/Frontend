@@ -63,7 +63,7 @@ import { BarcodeScannerLivestreamModule } from "ngx-barcode-scanner";
 import { PrintbillComponent } from './pages/printbill/printbill.component';
 import { NgxPrintModule } from 'ngx-print';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-
+import { NgxBarcodeModule } from 'ngx-barcode';
 
 
 
@@ -143,6 +143,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     BrowserModule,
     BarcodeScannerLivestreamModule,
     NgxPrintModule,
+    NgxBarcodeModule,
     Ng2SearchPipeModule
     // MatDatepickerModule, MatNativeDateModule
 

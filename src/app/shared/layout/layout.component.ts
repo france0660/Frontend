@@ -21,7 +21,7 @@ export class LayoutComponent implements OnInit {
   items = [{name:"ขายสินค้า",icon:"shopping_cart",link:"/placeorders"},
           {name:"รายการขายสินค้า",icon:"history",link:"/historybill"},
           {name:"เพิ่มรายการสินค้า",icon:"assignment_returned",link:"/home"},
-          {name:"รายการที่สั่งซื้อ",icon:"all_inbox",link:"/orderlist"},
+          {name:"ปริ้นบาร์โค้ด",icon:"print",link:"/orderlist"},
           {name:"Log Out",icon:"logout",link:"/login"}]
 
   openOrOff : boolean = true;
